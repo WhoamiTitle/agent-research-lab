@@ -1,0 +1,111 @@
+{
+  "checked_at": "2026-10-10 08:21:00 UTC",
+  "stage": "Local preparation; remaining shell scenarios moved to typed Python",
+  "style_reference": "user_service",
+  "commands": [
+    "start",
+    "stop",
+    "model",
+    "sync",
+    "setup",
+    "web-deps",
+    "chat",
+    "gateway",
+    "status"
+  ],
+  "shell_wrapper_lines": 5,
+  "architecture": {
+    "application_areas": [
+      "stand",
+      "model",
+      "deployment",
+      "hermes"
+    ],
+    "typed_ports": true,
+    "handlers_use_call": true,
+    "infrastructure_impl_adapters": true,
+    "composition_root": "src/agent_lab/main/di.py",
+    "new_runtime_dependencies": [],
+    "guest_installer": "infra/hermes/provision.py"
+  },
+  "checks": {
+    "characterization_before_extraction": {
+      "command": "uv run --locked pytest tests/integration/test_preparation_commands.py",
+      "tests_passed": 16,
+      "tests_skipped": 0,
+      "pytest_duration_seconds": 7.96
+    },
+    "make_check": {
+      "exit_code": 0,
+      "tests_passed": 88,
+      "tests_skipped": 0,
+      "pytest_duration_seconds": 33.95,
+      "ruff": "passed",
+      "ruff_format": "passed",
+      "mypy": "passed",
+      "checked_python_files": 85,
+      "import_contracts_kept": 3,
+      "import_contracts_broken": 0,
+      "bash_syntax": "passed"
+    },
+    "public_contracts": [
+      "Existing public commands, Ollama/Compose/Hermes argv and step order preserved; sync invokes the Python guest installer",
+      "External failures preserve exit code and stop subsequent steps",
+      "Chat forwards literal argv without shell interpretation",
+      "Help, unknown commands and argument validation retain wrapper behavior",
+      "Archive contains deployment trees only and excludes Python cache files"
+    ],
+    "real_filesystem": [
+      "Missing files seeded with private owner and permissions",
+      "Repeated provisioning preserves user files, metadata and logs",
+      "Skill update replaces a destination symlink without changing its target",
+      "Binary stdin preserved; stream remains owned by caller"
+    ],
+    "pty_with_stub_provider": [
+      "setup and chat keep controlling terminal, foreground group and input",
+      "Ctrl+C returns 130 without wrapper traceback",
+      "Timeout returns 124 and restores the original foreground group"
+    ],
+    "manual_architecture_review": "performed in this session",
+    "independent_checker": false
+  },
+  "live_vm_acceptance": {
+    "final_acceptance_sync_runs": 2,
+    "sync_exit_codes": [
+      0,
+      0
+    ],
+    "protected_files": [
+      "config.yaml",
+      ".env",
+      "memories/USER.md",
+      "memories/MEMORY.md"
+    ],
+    "contents_mtime_modes_owners_preserved": true,
+    "log_retention_timer": "active",
+    "readiness_skill_mode_owner": "600 researcher researcher",
+    "guest_provision_script_matches_local": true,
+    "guest_python_version": "Python 3.12.3",
+    "initial_metadata_probe": "Unprivileged stat returned Permission denied; corrected to sudo stat.",
+    "preliminary_sync_runs": 2,
+    "chat_help": {
+      "command": "./scripts/lab.sh chat --help",
+      "tty": true,
+      "exit_code": 0,
+      "hermes_help_received": true,
+      "output_note": "s6-ftrigrd printed Broken pipe during init; the command returned 0 and its container was removed."
+    },
+    "final_status_exit_code": 0,
+    "final_vm_status": "Running",
+    "project_containers_after_help": 0,
+    "model_inference_performed": false,
+    "telegram_started": false
+  },
+  "limits": [
+    "Model download/create, setup wizard, web dependency installation and gateway invocation use stub providers in tests",
+    "No new real VM, model inference, Telegram connection or T1-T5/P1-P5 runs",
+    "Model/library downloads and partial guest/Docker changes retain original non-transactional semantics",
+    "New explicit process timeouts include a 24-hour limit for setup and chat",
+    "No private file contents or hashes are exported"
+  ]
+}

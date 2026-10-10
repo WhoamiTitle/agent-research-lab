@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
@@ -16,7 +16,17 @@ class RuntimeConfig:
     poll_interval: float = 0.25
     lock_timeout: float = 60.0
     vm_stop_timeout: float = 60.0
+    model_pull_timeout: float = 1800.0
+    model_create_timeout: float = 300.0
+    sync_timeout: float = 120.0
+    web_install_timeout: float = 900.0
+    gateway_timeout: float = 120.0
+    interactive_timeout: float = 86400.0
 
     @property
     def runtime_directory(self) -> Path:
         return self.home_directory / ".local/share/agent-research-lab"
+
+    @property
+    def deployment_directory(self) -> PurePosixPath:
+        return PurePosixPath(self.compose_path).parents[2]

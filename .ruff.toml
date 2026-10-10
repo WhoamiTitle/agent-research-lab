@@ -33,5 +33,6 @@ convention = "pep257"
 "src/agent_lab/presentation/cli/main.py" = ["T201"] # CLI output is this adapter's responsibility.
 "src/agent_lab/infrastructure/process.py" = ["S603"] # Internal argv tuples; no shell interpretation.
 "tests/fixtures/lab.py" = ["S603"] # Runs only the wrapper in an owned temporary fixture.
+"tests/fixtures/terminal.py" = ["S603"] # Fixed Python executable and owned PTY fixture scripts; no shell interpretation.
 "tests/integration/test_process_lifecycle.py" = ["S603"] # Fixed Python children and owned temporary PID files.
 "tests/**" = ["S101"] # Pytest assertions.

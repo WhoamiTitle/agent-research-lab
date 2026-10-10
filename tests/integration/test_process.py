@@ -39,3 +39,21 @@ def test_child_signal_uses_shell_exit_code() -> None:
             timeout=5,
         )
     assert caught.value.exit_code == SIGTERM_EXIT_CODE
+
+
+def test_binary_stdin_preserves_payload_and_leaves_source_owned_by_caller(tmp_path: Path) -> None:
+    payload = b"archive\x00\xff\ncontent"
+    source_file, destination_file = tmp_path / "source", tmp_path / "destination"
+    source_file.write_bytes(payload)
+    arguments = (
+        sys.executable,
+        "-c",
+        "import sys; from pathlib import Path; Path(sys.argv[1]).write_bytes(sys.stdin.buffer.read())",
+        str(destination_file),
+    )
+
+    with source_file.open("rb") as source:
+        ProcessRunner().run_with_input(arguments, source=source, timeout=5)
+        assert not source.closed
+
+    assert destination_file.read_bytes() == payload

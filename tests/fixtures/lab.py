@@ -127,6 +127,20 @@ if name == "curl" or (name == "limactl" and "curl" in arguments):
         raise SystemExit(7)
     print('{"version": "fixture-version"}')
     raise SystemExit(0)
+if name == "limactl" and "tar" in arguments:
+    (provider / "deployment.tar").write_bytes(sys.stdin.buffer.read())
+if name == "limactl" and "bash" in arguments:
+    (provider / "guest-program").write_text(sys.stdin.read())
+if name == "limactl" and "hermes" in arguments and os.environ["LAB_TEST_TERMINAL"] == "1":
+    with open("/dev/tty") as terminal:
+        foreground = os.tcgetpgrp(terminal.fileno()) == os.getpgrp()
+    print("READY_TTY=" + str(sys.stdin.isatty() and sys.stdout.isatty() and foreground), flush=True)
+    try:
+        answer = input()
+    except KeyboardInterrupt:
+        raise SystemExit(130)
+    print("ANSWER=" + answer, flush=True)
+    raise SystemExit(0)
 print(shlex.join(arguments))
 """
     )
@@ -141,6 +155,10 @@ def build_lab_shell(directory: Path) -> LabShell:
     source = Path(__file__).resolve().parents[2]
     shutil.copy2(source / "scripts/lab.sh", scripts / "lab.sh")
     shutil.copytree(source / "src", project / "src", ignore=shutil.ignore_patterns("__pycache__"))
+    shutil.copytree(source / "infra/hermes", project / "infra/hermes", ignore=shutil.ignore_patterns("__pycache__"))
+    shutil.copytree(source / "templates", project / "templates")
+    (project / "infra/ollama").mkdir()
+    shutil.copy2(source / "infra/ollama/Modelfile", project / "infra/ollama/Modelfile")
     tools = directory / "bin"
     tools.mkdir()
     for name in ("limactl", "ollama", "launchctl", "curl"):
@@ -159,5 +177,9 @@ def build_lab_shell(directory: Path) -> LabShell:
         LAB_TEST_TRACE=str(trace_file),
         LAB_TEST_PROVIDER=str(provider_directory),
         LAB_TEST_VM_START_DELAY="0",
+        LAB_TEST_TERMINAL="0",
+        LAB_TEST_FAIL_CALL="0",
+        LAB_TEST_FAIL_CODE=str(DEFAULT_FAILURE_EXIT_CODE),
+        LAB_TEST_FAILURES="",
     )
     return LabShell(directory=directory, project=project, home=home, trace_file=trace_file, environment=environment)

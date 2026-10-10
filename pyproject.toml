@@ -29,7 +29,7 @@ addopts = "-ra --strict-config --strict-markers"
 python_version = "3.13"
 strict = true
 mypy_path = "src"
-files = ["src/agent_lab", "tests"]
+files = ["src/agent_lab", "tests", "infra/hermes/provision.py"]
 
 [tool.importlinter]
 root_package = "agent_lab"

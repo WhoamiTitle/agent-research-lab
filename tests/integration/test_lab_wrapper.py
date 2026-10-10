@@ -9,6 +9,7 @@ from tests.fixtures.lab import LabShell
 SERVICES_FAILURE_EXIT_CODE: Final = 9
 STATUS_FAILURE_EXIT_CODE: Final = 13
 EXISTING_MODEL_PID: Final = 42
+ARGUMENT_ERROR_EXIT_CODE: Final = 2
 
 
 def test_new_vm_start_preserves_template_path_with_spaces(lab_shell: LabShell) -> None:
@@ -179,9 +180,18 @@ def test_chat_arguments_still_pass_directly_to_hermes(lab_shell: LabShell) -> No
     ]
 
 
-@pytest.mark.parametrize("arguments", [(), ("help",), ("unknown",)])
+@pytest.mark.parametrize("arguments", [(), ("help",), ("unknown",), ("--help",), ("-h",)])
 def test_wrapper_help_and_unknown_command_keep_usage(lab_shell: LabShell, arguments: tuple[str, ...]) -> None:
     result = lab_shell.run(arguments)
     assert result.returncode == 0
     assert result.stdout == "Usage: scripts/lab.sh start|stop|model|sync|setup|web-deps|chat|gateway|status\n"
+    assert lab_shell.commands() == []
+
+
+@pytest.mark.parametrize("command", ["start", "stop", "status"])
+def test_lifecycle_commands_keep_rejecting_extra_arguments(lab_shell: LabShell, command: str) -> None:
+    result = lab_shell.run((command, "extra"))
+
+    assert result.returncode == ARGUMENT_ERROR_EXIT_CODE
+    assert "unrecognized arguments: extra" in result.stderr
     assert lab_shell.commands() == []

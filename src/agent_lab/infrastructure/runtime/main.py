@@ -7,6 +7,7 @@ from agent_lab.application.common.exceptions import StandOperationError
 from agent_lab.application.stand.components import StandComponent
 from agent_lab.application.stand.interfaces.runtime import StandDiagnostics, StandShutdown
 from agent_lab.infrastructure.process import ProcessResult, ProcessRunner
+from agent_lab.infrastructure.runtime.commands import compose_arguments, guest_arguments
 from agent_lab.infrastructure.runtime.config import RuntimeConfig
 from agent_lab.infrastructure.runtime.launchd import LaunchdServicesImpl
 from agent_lab.infrastructure.runtime.lock import LifecycleLockImpl
@@ -62,9 +63,7 @@ class LocalRuntimeImpl(StandShutdown, StandDiagnostics):
 
     def wait_ready(self, component: StandComponent) -> None:
         if component == StandComponent.VM:
-            self._runner.capture(
-                ("limactl", "shell", self._config.vm_name, "--", "true"), timeout=self._config.status_timeout
-            )
+            self._runner.capture(guest_arguments(self._config, "true"), timeout=self._config.status_timeout)
         else:
             self._wait_service(component)
 
@@ -77,7 +76,7 @@ class LocalRuntimeImpl(StandShutdown, StandDiagnostics):
 
     def stop_containers(self) -> None:
         if self._vm_status() == "Running":
-            self._runner.run((*self._compose_arguments(), "down"), timeout=self._config.vm_stop_timeout)
+            self._runner.run(compose_arguments(self._config, "down"), timeout=self._config.vm_stop_timeout)
 
     def _vm_status(self) -> str:
         return self._runner.capture(
@@ -136,21 +135,8 @@ class LocalRuntimeImpl(StandShutdown, StandDiagnostics):
             "http://127.0.0.1:11434/api/version",
         )
         if in_vm:
-            arguments = ("limactl", "shell", self._config.vm_name, "--", *arguments)
+            arguments = guest_arguments(self._config, *arguments)
         return self._runner.capture(arguments, timeout=budget, check=False)
-
-    def _compose_arguments(self) -> tuple[str, ...]:
-        return (
-            "limactl",
-            "shell",
-            self._config.vm_name,
-            "--",
-            "sudo",
-            "docker",
-            "compose",
-            "-f",
-            self._config.compose_path,
-        )
 
     def show_vm_status(self) -> None:
         self._runner.run(
@@ -162,4 +148,4 @@ class LocalRuntimeImpl(StandShutdown, StandDiagnostics):
         self._runner.run(("ollama", "ps"), timeout=self._config.status_timeout)
 
     def show_container_status(self) -> None:
-        self._runner.run((*self._compose_arguments(), "ps", "--all"), timeout=self._config.status_timeout)
+        self._runner.run(compose_arguments(self._config, "ps", "--all"), timeout=self._config.status_timeout)
