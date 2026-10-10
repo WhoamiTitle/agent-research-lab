@@ -1,0 +1,53 @@
+[project]
+name = "agent-research-lab"
+version = "0.1.0"
+description = "Local preparation tools for the autonomous agent research assignment"
+requires-python = ">=3.13"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    { include-group = "lint" },
+    { include-group = "test" },
+]
+lint = [
+    "import-linter>=2.5",
+    "mypy>=1.19",
+    "ruff>=0.15",
+]
+test = ["pytest>=8.3"]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "."]
+addopts = "-ra --strict-config --strict-markers"
+
+[tool.mypy]
+python_version = "3.13"
+strict = true
+mypy_path = "src"
+files = ["src/agent_lab", "tests"]
+
+[tool.importlinter]
+root_package = "agent_lab"
+
+[[tool.importlinter.contracts]]
+name = "Application is independent of adapters and assembly"
+type = "forbidden"
+source_modules = ["agent_lab.application"]
+forbidden_modules = ["agent_lab.infrastructure", "agent_lab.presentation", "agent_lab.main"]
+
+[[tool.importlinter.contracts]]
+name = "Presentation uses the application boundary"
+type = "forbidden"
+source_modules = ["agent_lab.presentation"]
+forbidden_modules = ["agent_lab.infrastructure", "agent_lab.main"]
+
+[[tool.importlinter.contracts]]
+name = "Infrastructure is independent of presentation and assembly"
+type = "forbidden"
+source_modules = ["agent_lab.infrastructure"]
+forbidden_modules = ["agent_lab.presentation", "agent_lab.main"]

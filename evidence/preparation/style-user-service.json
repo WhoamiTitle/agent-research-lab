@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-10",
+  "stage": "preparation-style-alignment",
+  "reference": {
+    "project": "user_service",
+    "base_commit": "220542f176dd92ddad183bc7b979369e006193a1",
+    "scope": "local project structure, handler and interface conventions, dataclass configuration, pytest organization and Ruff profile"
+  },
+  "checks": [
+    {
+      "command": "make check",
+      "result": "passed",
+      "pytest_cases": 21,
+      "skipped_cases": 0,
+      "mypy_source_files": 40,
+      "import_contracts_kept": 3,
+      "import_contracts_broken": 0,
+      "ruff_lint": "passed",
+      "ruff_format": "passed",
+      "bash_syntax": "passed"
+    },
+    {
+      "check": "before-after-wrapper-comparison",
+      "result": "passed",
+      "case_count": 12,
+      "matching_exit_codes": 12,
+      "matching_stdout": 12,
+      "matching_command_arguments": 12,
+      "dependency_mode": "temporary HOME and executable stubs"
+    },
+    {
+      "command": "./scripts/lab.sh status",
+      "dependency_mode": "real local environment",
+      "result": "expected unavailable-component error",
+      "exit_code": 1,
+      "observed_vm_status": "Stopped",
+      "observed_model_status": "Ollama server unavailable",
+      "python_traceback": false
+    }
+  ],
+  "limitations": [
+    "The real stand was stopped and was not started for the style-only change.",
+    "Service startup and successful status paths were checked with executable stubs.",
+    "No research experiments, LLM inference or Telegram delivery were performed.",
+    "Startup idempotency and partial-start rollback remain separate future changes."
+  ]
+}

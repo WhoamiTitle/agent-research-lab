@@ -1,0 +1,6 @@
+FROM qwen3.5:4b
+PARAMETER num_ctx 65536
+PARAMETER num_predict 2048
+PARAMETER temperature 0.2
+
+# This fixes runtime context, not an assurance of reliable answers at 64K.

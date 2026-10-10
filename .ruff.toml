@@ -1,0 +1,37 @@
+target-version = "py313"
+line-length = 120
+
+[lint]
+select = ["ALL"]
+ignore = [
+    "CPY001", # The reference has no per-file copyright headers; no license policy is introduced here.
+    "D100", # Public modules and simple contracts follow the reference's concise style.
+    "D101",
+    "D102",
+    "D103",
+    "D104",
+    "D105",
+    "D107",
+    "TRY003", # Concrete boundary failures carry actionable messages.
+    "EM101",
+    "EM102",
+    "TC003", # Annotations are evaluated at runtime; postponed annotations are not used.
+    "COM812", # Ruff's formatter owns trailing commas.
+    "ISC001",
+]
+
+[lint.isort]
+combine-as-imports = true
+
+[lint.mccabe]
+max-complexity = 12
+
+[lint.pydocstyle]
+convention = "pep257"
+
+[lint.per-file-ignores]
+"src/agent_lab/presentation/cli/main.py" = ["T201"] # CLI output is this adapter's responsibility.
+"src/agent_lab/infrastructure/process.py" = ["S603"] # Internal argv tuples; no shell interpretation.
+"tests/fixtures/lab.py" = ["S603"] # Runs only the wrapper in an owned temporary fixture.
+"tests/integration/test_process_lifecycle.py" = ["S603"] # Fixed Python children and owned temporary PID files.
+"tests/**" = ["S101"] # Pytest assertions.

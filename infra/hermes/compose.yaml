@@ -1,0 +1,37 @@
+name: agent-research-lab
+
+services:
+  hermes:
+    image: nousresearch/hermes-agent:v0.21.6@sha256:55e192fba0cd4fde61142abbff5adeacff40efdb482ccd0ff877924bd274f909
+    container_name: agent-research-hermes
+    restart: unless-stopped
+    command: [gateway, run]
+    working_dir: /opt/data/workspace
+    # This is the dedicated Linux VM's network, not the Mac's network.
+    # Ollama is reachable only at VM loopback via reverse SSH forwarding.
+    network_mode: host
+    volumes:
+      - /srv/agent-lab/data:/opt/data
+    environment:
+      HERMES_HOME: /opt/data
+      HERMES_UID: "10000"
+      HERMES_GID: "10000"
+      HERMES_DASHBOARD: "0"
+      API_SERVER_ENABLED: "false"
+      TELEGRAM_ALLOW_ALL: "false"
+      TELEGRAM_GUEST_MODE: "false"
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - NET_RAW
+    # Keep the upstream init: it prepares the volume and drops Hermes to
+    # UID 10000. Verify the runtime user, not just the container init user.
+    mem_limit: 2300m
+    cpus: 2.0
+    pids_limit: 512
+    stop_grace_period: 30s
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"

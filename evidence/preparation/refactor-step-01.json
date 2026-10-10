@@ -1,0 +1,71 @@
+{
+  "date": "2026-10-10",
+  "stage": "preparation-refactor-01",
+  "python_version": "3.13.7",
+  "checks": [
+    {
+      "command": "make check",
+      "result": "passed",
+      "unittest_count": 16,
+      "mypy_source_files": 16,
+      "import_contracts_kept": 3,
+      "import_contracts_broken": 0,
+      "ruff_lint": "passed",
+      "ruff_format": "passed",
+      "bash_syntax": "passed"
+    },
+    {
+      "check": "before-after-wrapper-comparison",
+      "result": "passed",
+      "case_count": 12,
+      "matching_exit_codes": 12,
+      "matching_stdout": 12,
+      "matching_command_arguments": 12,
+      "cases": [
+        "start-new",
+        "start-existing",
+        "start-vm-error",
+        "start-services-error",
+        "status",
+        "status-vm-error",
+        "status-model-error",
+        "chat-arguments",
+        "model",
+        "stop",
+        "help",
+        "unknown"
+      ],
+      "dependency_mode": "temporary HOME and executable stubs; no real service startup"
+    },
+    {
+      "command": "./scripts/lab.sh start",
+      "dependency_mode": "real existing local VM and launchd services",
+      "result": "passed",
+      "exit_code": 0,
+      "observed_vm": "agent-research was already running",
+      "observed_output": "Local Ollama and the VM tunnel started for the current login session."
+    },
+    {
+      "command": "./scripts/lab.sh status",
+      "dependency_mode": "real local VM, Ollama and Docker Compose",
+      "result": "passed",
+      "exit_code": 0,
+      "observed_vm_status": "Running",
+      "loaded_models": 0,
+      "hermes_containers": 0
+    },
+    {
+      "command": "limactl shell agent-research -- curl -fsS --max-time 5 --retry 3 --retry-delay 1 --retry-connrefused --retry-max-time 10 http://127.0.0.1:11434/api/version",
+      "result": "passed",
+      "exit_code": 0,
+      "response": {"version": "0.35.1"}
+    }
+  ],
+  "limitations": [
+    "A new real VM was not created; that branch was checked using executable stubs.",
+    "No LLM inference or Telegram delivery was performed.",
+    "Startup still restarts local services and has no partial-start rollback.",
+    "Timeout terminates the direct child but does not undo daemon or remote effects.",
+    "Status preserves component output and does not establish full agent readiness."
+  ]
+}

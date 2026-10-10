@@ -1,0 +1,39 @@
+# Python tooling, if introduced at a later stage.
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+*.egg-info/
+build/
+dist/
+
+# Credentials and private local configuration.
+.env
+.env.*
+!.env.example
+!.env.*.example
+.secrets/
+secrets/
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Private agent runtime and unreviewed evidence.
+.hermes/
+.runtime/
+.local/
+evidence/private/
+compose.override.yml
+
+# Generated site and local editor files.
+site/
+node_modules/
+.DS_Store
+.idea/
+.vscode/

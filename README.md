@@ -23,6 +23,7 @@ Telegram ожидает отдельного бота и личного числ
 - [Уточнённый раздел подготовки](sources/assignment-02-preparation.txt).
 - [Подготовительный этап](docs/preparation.md).
 - [Управление локальным стендом](docs/local-setup.md).
+- [Архитектура скриптов управления](docs/architecture.md).
 - [Ошибки подготовки и решения](docs/preparation-errors.md).
 - [Происхождение исходных материалов](sources/README.md).
 - [Правила хранения подтверждающих материалов](evidence/README.md).
@@ -34,10 +35,16 @@ agent-research-lab/
 ├── README.md
 ├── .editorconfig
 ├── .gitignore
+├── pyproject.toml  # Python 3.13+, dev-инструменты и правила проверок
+├── .ruff.toml      # профиль стиля на основе user_service
+├── uv.lock         # закреплённые dev-зависимости
+├── Makefile        # lint, test, check
 ├── docs/           # статус, управление стендом, журнал ошибок
 ├── sources/        # неизменённые тексты задания, происхождение материалов
 ├── infra/          # VM, Docker/Hermes, Ollama, хранение журналов
 ├── scripts/        # локальные команды управления
+├── src/agent_lab/  # CLI, прикладные сценарии и инфраструктурные адаптеры
+├── tests/          # pytest: unit, integration, fixtures, mocks
 ├── templates/      # память, пример .env, диагностический skill
 └── evidence/       # проверенные результаты технической подготовки
 ```
@@ -64,4 +71,9 @@ agent-research-lab/
 `./scripts/lab.sh start`. CLI использует прежнюю память и инструменты в VM.
 Локальный диалог проверен; ошибочный ответ модели о Docker/GPU сохранён
 в [журнале ошибок](docs/preparation-errors.md).
+
+Повторный `start` сохраняет работающие VM, Ollama и туннель. При ошибке
+запуска освобождаются только компоненты текущей попытки; диски и модели
+сохраняются. Поведение проверено на локальном стенде, результаты находятся
+в [материалах проверки запуска](evidence/preparation/startup-lifecycle.json).
 # agent-research-lab

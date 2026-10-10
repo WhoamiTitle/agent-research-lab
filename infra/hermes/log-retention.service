@@ -1,0 +1,12 @@
+[Unit]
+Description=Expire completed Hermes gateway log archives
+
+[Service]
+Type=oneshot
+User=researcher
+ExecStart=/usr/local/sbin/agent-lab-expire-gateway-logs
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/srv/agent-lab/data/logs/gateways

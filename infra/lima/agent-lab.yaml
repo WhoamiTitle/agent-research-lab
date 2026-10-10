@@ -1,0 +1,93 @@
+minimumLimaVersion: 2.0.0
+vmType: vz
+arch: aarch64
+cpus: 2
+memory: 3GiB
+disk: 24GiB
+
+images:
+  - location: https://cloud-images.ubuntu.com/releases/noble/release-20260926/ubuntu-24.04-server-cloudimg-arm64.img
+    arch: aarch64
+    digest: sha256:1d6bffe64b848468ac97f821d369a4846d983de1800ccf6b5ec8853e85cefc55
+
+# Guest storage only: no macOS home or project directories are shared.
+mounts: []
+ssh:
+  loadDotSSHPubKeys: false
+  forwardAgent: false
+containerd:
+  system: false
+  user: false
+
+# Disable automatic forwarding of application ports to macOS.
+portForwards:
+  - guestPortRange: [1, 65535]
+    ignore: true
+
+provision:
+  - mode: system
+    script: |
+      #!/bin/bash
+      set -euo pipefail
+      export DEBIAN_FRONTEND=noninteractive
+      apt-get update
+      apt-get upgrade -y
+      apt-get install -y ca-certificates curl gnupg ufw logrotate
+
+      if ! id researcher >/dev/null 2>&1; then
+        useradd --uid 10000 --create-home --shell /usr/sbin/nologin researcher
+      fi
+      install -d -m 0700 -o researcher -g researcher /srv/agent-lab/data
+      install -d -m 0755 /srv/agent-lab/deployment
+
+      cat > /etc/ssh/sshd_config.d/00-agent-lab.conf <<'SSH'
+      PasswordAuthentication no
+      KbdInteractiveAuthentication no
+      PermitRootLogin no
+      PubkeyAuthentication yes
+      AllowAgentForwarding no
+      X11Forwarding no
+      GatewayPorts no
+      SSH
+      sshd -t
+      systemctl reload ssh
+
+      # Use Docker's signed Ubuntu repository instead of a remote shell installer.
+      install -m 0755 -d /etc/apt/keyrings
+      curl -fsSL --retry 3 https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+      chmod a+r /etc/apt/keyrings/docker.asc
+      cat > /etc/apt/sources.list.d/docker.sources <<'DOCKER'
+      Types: deb
+      URIs: https://download.docker.com/linux/ubuntu
+      Suites: noble
+      Components: stable
+      Architectures: arm64
+      Signed-By: /etc/apt/keyrings/docker.asc
+      DOCKER
+      apt-get update
+      apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+      # Keep the researcher account outside the privileged docker group.
+      systemctl enable --now docker
+
+      ufw default deny incoming
+      ufw default allow outgoing
+      ufw allow 22/tcp
+      # Lima's user-mode DNS; block access to host/LAN private addresses.
+      ufw allow out to 192.168.5.2 port 53 proto udp
+      ufw allow out to 192.168.5.2 port 53 proto tcp
+      ufw deny out to 10.0.0.0/8
+      ufw deny out to 172.16.0.0/12
+      ufw deny out to 192.168.0.0/16
+      ufw deny out to 169.254.0.0/16
+      ufw deny out to fc00::/7
+      ufw --force enable
+
+probes:
+  - script: |
+      #!/bin/bash
+      set -euo pipefail
+      sudo docker info >/dev/null
+      sudo docker compose version
+      test "$(id -u researcher)" -ne 0
+      test -z "$(findmnt -t virtiofs,9p -n)"
+    hint: Check /var/log/cloud-init-output.log in the dedicated VM.

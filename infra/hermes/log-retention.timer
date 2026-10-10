@@ -1,0 +1,10 @@
+[Unit]
+Description=Daily retention check for completed Hermes gateway logs
+
+[Timer]
+OnCalendar=daily
+Persistent=true
+Unit=agent-lab-log-retention.service
+
+[Install]
+WantedBy=timers.target

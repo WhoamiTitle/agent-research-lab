@@ -1,0 +1,113 @@
+{
+  "initial_live_probe": {
+    "checked_at_utc": "2026-10-10T07:29:29.150179+00:00",
+    "result": "Tunnel readiness timed out before controlled injection; rollback completed.",
+    "exit_code": 124,
+    "cause": "Inherited Lima ControlMaster auto, ControlPath ssh.sock and ControlPersist yes.",
+    "snapshot_after_rollback": {
+      "vm_status": "Stopped",
+      "ollama_loaded": false,
+      "tunnel_loaded": false
+    },
+    "vm_directory_preserved": true,
+    "models_directory_preserved": true,
+    "repair": "Disable SSH multiplexing for the tunnel job; retain Lima configuration for other commands."
+  },
+  "owned_resources_failure": {
+    "exit_code": 79,
+    "message": "Controlled acceptance failure after tunnel readiness.",
+    "before": {
+      "vm_status": "Stopped",
+      "vm_host_agent_pid": null,
+      "ollama_loaded": false,
+      "ollama_pid": null,
+      "tunnel_loaded": false,
+      "tunnel_pid": null
+    },
+    "after_rollback": {
+      "vm_status": "Stopped",
+      "vm_host_agent_pid": null,
+      "ollama_loaded": false,
+      "ollama_pid": null,
+      "tunnel_loaded": false,
+      "tunnel_pid": null
+    },
+    "vm_directory_preserved": true,
+    "existing_disk_preserved": true,
+    "models_directory_preserved": true
+  },
+  "repeated_start": {
+    "first_snapshot": {
+      "vm_status": "Running",
+      "vm_host_agent_pid": 15942,
+      "ollama_loaded": true,
+      "ollama_pid": 16070,
+      "tunnel_loaded": true,
+      "tunnel_pid": 16081
+    },
+    "repeated_snapshot": {
+      "vm_status": "Running",
+      "vm_host_agent_pid": 15942,
+      "ollama_loaded": true,
+      "ollama_pid": 16070,
+      "tunnel_loaded": true,
+      "tunnel_pid": 16081
+    },
+    "wrapper_stdout": "VM, local Ollama and the tunnel are ready.",
+    "all_pids_unchanged": true
+  },
+  "reused_resources_failure": {
+    "exit_code": 79,
+    "message": "Controlled acceptance failure after tunnel readiness.",
+    "before": {
+      "vm_status": "Running",
+      "vm_host_agent_pid": 15942,
+      "ollama_loaded": true,
+      "ollama_pid": 16070,
+      "tunnel_loaded": false,
+      "tunnel_pid": null
+    },
+    "after_rollback": {
+      "vm_status": "Running",
+      "vm_host_agent_pid": 15942,
+      "ollama_loaded": true,
+      "ollama_pid": 16070,
+      "tunnel_loaded": false,
+      "tunnel_pid": null
+    },
+    "vm_and_model_pids_unchanged": true,
+    "vm_api_curl_exit_after_explicit_tunnel_stop": 7,
+    "vm_api_curl_exit_after_tunnel_rollback": 7
+  },
+  "final_snapshot": {
+    "vm_status": "Running",
+    "vm_host_agent_pid": 15942,
+    "ollama_loaded": true,
+    "ollama_pid": 16070,
+    "tunnel_loaded": true,
+    "tunnel_pid": 16181
+  },
+  "final_status_exit_code": 0,
+  "local_api_version": "0.35.1",
+  "vm_api_version": "0.35.1",
+  "checked_at_utc": "2026-10-10T07:31:41.390087+00:00",
+  "limitations": [
+    "An existing stopped VM was used; creating a new real VM was not tested.",
+    "Readiness covers VM SSH, Ollama PID/API and tunnel PID/VM API; agent inference and Telegram were not exercised."
+  ],
+  "development_checks": {
+    "checked_at_utc": "2026-10-10T07:35:20.720975+00:00",
+    "command": "make check",
+    "exit_code": 0,
+    "pytest_passed": 53,
+    "pytest_skipped": 0,
+    "mypy_checked_files": 51,
+    "ruff_formatted_files": 51,
+    "import_contracts_kept": 3,
+    "shell_syntax": "passed",
+    "python_style_scanner": "No heuristic candidates in the initial scan; manual architecture review performed separately.",
+    "asyncio_scanner": "0 async functions, 0 candidates; synchronous CLI with a process lock.",
+    "design_review": "Application owns startup order and the per-invocation cleanup list; infrastructure owns external effects. Expected cleanup errors preserve the initiating exit code. SSH multiplexing is disabled for the tunnel to make ownership match its launchd process.",
+    "independent_reviewer": false
+  }
+}
