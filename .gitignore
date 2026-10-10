@@ -1,4 +1,4 @@
-# Python tooling, if introduced at a later stage.
+# Python tooling and generated test reports.
 __pycache__/
 *.py[cod]
 .venv/

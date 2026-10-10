@@ -66,18 +66,15 @@ class LaunchdServicesImpl:
         except OSError as error:
             raise StandOperationError(f"Cannot configure {component}: {error.strerror}.") from error
         # A just-removed launchd job can temporarily reserve its label.
-        for delay in (0.0, 0.25, 0.5, 1.0):
-            if delay:
-                time.sleep(delay)
-            result = self._runner.capture(
-                ("launchctl", "bootstrap", self._domain, str(plist)),
-                timeout=self._config.service_timeout,
-                check=False,
-            )
-            if result.returncode == 0:
-                return
+        arguments = ("launchctl", "bootstrap", self._domain, str(plist))
+        result = self._runner.capture(arguments, timeout=self._config.service_timeout, check=False)
+        for delay in (0.25, 0.5, 1.0):
             if result.returncode != RESERVED_LABEL_EXIT_CODE:
                 break
+            time.sleep(delay)
+            result = self._runner.capture(arguments, timeout=self._config.service_timeout, check=False)
+        if result.returncode == 0:
+            return
         raise StandOperationError(
             f"Cannot start {component}: {result.stderr.strip()}",
             exit_code=result.returncode if result.returncode > 0 else 128 - result.returncode,

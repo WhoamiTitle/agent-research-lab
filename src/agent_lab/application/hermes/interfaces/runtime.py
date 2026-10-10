@@ -1,3 +1,4 @@
+from abc import abstractmethod
 from typing import Protocol
 
 
@@ -8,18 +9,18 @@ class HermesSetup(Protocol):
     raises StandOperationError on external failure. Credentials stay in the VM.
     """
 
-    def setup(self) -> None:
-        raise NotImplementedError
+    @abstractmethod
+    def setup(self) -> None: ...
 
 
 class HermesWebDependencies(Protocol):
     """Bounded dependency installation; failure preserves completed installs."""
 
-    def install_search_dependency(self) -> None:
-        raise NotImplementedError
+    @abstractmethod
+    def install_search_dependency(self) -> None: ...
 
-    def install_browser_dependency(self) -> None:
-        raise NotImplementedError
+    @abstractmethod
+    def install_browser_dependency(self) -> None: ...
 
 
 class HermesChat(Protocol):
@@ -29,8 +30,8 @@ class HermesChat(Protocol):
     command. Conversation data remains in the VM.
     """
 
-    def chat(self, arguments: tuple[str, ...]) -> None:
-        raise NotImplementedError
+    @abstractmethod
+    def chat(self, arguments: tuple[str, ...]) -> None: ...
 
 
 class HermesGateway(Protocol):
@@ -40,11 +41,11 @@ class HermesGateway(Protocol):
     A failed start may have reached Docker; existing containers are retained.
     """
 
-    def check_configuration(self) -> None:
-        raise NotImplementedError
+    @abstractmethod
+    def check_configuration(self) -> None: ...
 
-    def check_model_connection(self) -> None:
-        raise NotImplementedError
+    @abstractmethod
+    def check_model_connection(self) -> None: ...
 
-    def start_gateway(self) -> None:
-        raise NotImplementedError
+    @abstractmethod
+    def start_gateway(self) -> None: ...

@@ -1,3 +1,4 @@
+from abc import abstractmethod
 from contextlib import AbstractContextManager
 from typing import Protocol
 
@@ -13,25 +14,25 @@ class StandStartup(Protocol):
     readiness must fail rather than restart them. Stop preserves persistent data.
     """
 
-    def exclusive(self) -> AbstractContextManager[None]:
-        raise NotImplementedError
+    @abstractmethod
+    def exclusive(self) -> AbstractContextManager[None]: ...
 
-    def is_started(self, component: StandComponent) -> bool:
-        raise NotImplementedError
+    @abstractmethod
+    def is_started(self, component: StandComponent) -> bool: ...
 
-    def start(self, component: StandComponent) -> None:
-        raise NotImplementedError
+    @abstractmethod
+    def start(self, component: StandComponent) -> None: ...
 
-    def wait_ready(self, component: StandComponent) -> None:
-        raise NotImplementedError
+    @abstractmethod
+    def wait_ready(self, component: StandComponent) -> None: ...
 
-    def stop(self, component: StandComponent) -> None:
-        raise NotImplementedError
+    @abstractmethod
+    def stop(self, component: StandComponent) -> None: ...
 
 
 class StandShutdown(StandStartup, Protocol):
-    def stop_containers(self) -> None:
-        raise NotImplementedError
+    @abstractmethod
+    def stop_containers(self) -> None: ...
 
 
 class StandDiagnostics(Protocol):
@@ -40,11 +41,11 @@ class StandDiagnostics(Protocol):
     Each call is bounded and raises StandOperationError on failure.
     """
 
-    def show_vm_status(self) -> None:
-        raise NotImplementedError
+    @abstractmethod
+    def show_vm_status(self) -> None: ...
 
-    def show_model_status(self) -> None:
-        raise NotImplementedError
+    @abstractmethod
+    def show_model_status(self) -> None: ...
 
-    def show_container_status(self) -> None:
-        raise NotImplementedError
+    @abstractmethod
+    def show_container_status(self) -> None: ...

@@ -1,3 +1,4 @@
+from abc import abstractmethod
 from typing import Protocol
 
 
@@ -9,8 +10,8 @@ class DeploymentPreparation(Protocol):
     configuration and memory must remain intact across retries.
     """
 
-    def transfer_files(self) -> None:
-        raise NotImplementedError
+    @abstractmethod
+    def transfer_files(self) -> None: ...
 
-    def prepare_guest(self) -> None:
-        raise NotImplementedError
+    @abstractmethod
+    def prepare_guest(self) -> None: ...

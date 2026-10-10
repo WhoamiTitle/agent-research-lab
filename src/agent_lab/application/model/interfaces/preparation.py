@@ -1,3 +1,4 @@
+from abc import abstractmethod
 from typing import Protocol
 
 
@@ -7,8 +8,8 @@ class ModelPreparation(Protocol):
     Downloaded weights and an existing lab model are retained after failure.
     """
 
-    def pull_base_model(self) -> None:
-        raise NotImplementedError
+    @abstractmethod
+    def pull_base_model(self) -> None: ...
 
-    def create_lab_model(self) -> None:
-        raise NotImplementedError
+    @abstractmethod
+    def create_lab_model(self) -> None: ...

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -eu -o pipefail
 
 task_log_dir=/srv/agent-lab/data/logs/gateways
 if [[ -d "$task_log_dir" && ! -L "$task_log_dir" ]]; then

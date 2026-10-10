@@ -20,7 +20,8 @@ Telegram ожидает отдельного бота и личного числ
 Все команды `scripts/lab.sh` выполняет типизированный Python CLI.
 Обработчики сгруппированы по области в стиле `user_service`; оболочка
 передаёт аргументы, а адаптеры управляют Ollama, Lima и Hermes.
-Для проверки кода: `uv sync --locked`, затем `make check`.
+Оформление Python, shell и команд разработки следует `fastapi-clean-example`.
+Для проверки кода: `uv sync --locked`, затем `make check-ci`.
 
 ## Материалы
 
@@ -29,6 +30,7 @@ Telegram ожидает отдельного бота и личного числ
 - [Подготовительный этап](docs/preparation.md).
 - [Управление локальным стендом](docs/local-setup.md).
 - [Архитектура скриптов управления](docs/architecture.md).
+- [Стиль кода и команды разработки](docs/code-style.md).
 - [Ошибки подготовки и решения](docs/preparation-errors.md).
 - [Происхождение исходных материалов](sources/README.md).
 - [Правила хранения подтверждающих материалов](evidence/README.md).
@@ -40,16 +42,18 @@ agent-research-lab/
 ├── README.md
 ├── .editorconfig
 ├── .gitignore
+├── .pre-commit-config.yaml
+├── .github/        # CI для Python 3.13 на macOS
 ├── pyproject.toml  # Python 3.13+, dev-инструменты и правила проверок
-├── .ruff.toml      # профиль стиля на основе user_service
 ├── uv.lock         # закреплённые dev-зависимости
-├── Makefile        # lint, test, check
+├── Makefile        # lint, format, test, check-ci, shellcheck и утилиты
 ├── docs/           # статус, управление стендом, журнал ошибок
 ├── sources/        # неизменённые тексты задания, происхождение материалов
 ├── infra/          # VM, Docker/Hermes, Ollama, хранение журналов
-├── scripts/        # локальные команды управления
+├── scripts/        # lab.sh и shell-помощники в makefile/
 ├── src/agent_lab/  # CLI, прикладные сценарии и инфраструктурные адаптеры
-├── tests/          # pytest: unit, integration, fixtures, mocks
+├── tests/          # pytest: unit, integration, tooling, fixtures, mocks
+├── licenses/       # MIT-уведомление заимствованного Self-checker
 ├── templates/      # память, пример .env, диагностический skill
 └── evidence/       # проверенные результаты технической подготовки
 ```

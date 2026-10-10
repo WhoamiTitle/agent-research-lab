@@ -34,5 +34,5 @@ class StartStandHandler:
             try:
                 self._startup.stop(component)
             except (StandOperationError, KeyboardInterrupt) as error:
-                failures.append(f"Cleanup failed for {component}: {error or 'interrupted'}")
+                failures.append(f"Cleanup failed for {component}: {error}")
         return tuple(failures)

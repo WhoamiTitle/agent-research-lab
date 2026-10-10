@@ -1,7 +1,6 @@
 import json
 import time
 from contextlib import AbstractContextManager
-from typing import TypedDict, cast
 
 from agent_lab.application.common.exceptions import StandOperationError
 from agent_lab.application.stand.components import StandComponent
@@ -12,17 +11,14 @@ from agent_lab.infrastructure.runtime.config import RuntimeConfig
 from agent_lab.infrastructure.runtime.launchd import LaunchdServicesImpl
 from agent_lab.infrastructure.runtime.lock import LifecycleLockImpl
 
-
-class VersionResponse(TypedDict):
-    version: str
+type JsonValue = str | int | float | bool | list[JsonValue] | dict[str, JsonValue] | None
 
 
 def is_version_response(output: str) -> bool:
     try:
-        response = cast("VersionResponse", json.loads(output))
+        response: JsonValue = json.loads(output)
     except json.JSONDecodeError:
         return False
-    # The cast describes external JSON; validate its shape before trusting it.
     return (
         isinstance(response, dict)
         and "version" in response

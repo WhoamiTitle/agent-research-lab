@@ -1,0 +1,93 @@
+{
+  "checked_at": "2026-10-10 09:03:16 UTC",
+  "stage": "Local preparation; Python, shell and tooling style aligned with fastapi-clean-example",
+  "reference": {
+    "repository": "https://github.com/ivan-borovets/fastapi-clean-example",
+    "commit": "5d68d52",
+    "borrowed_checker": "scripts/makefile/self_return.py",
+    "license_notice": "licenses/fastapi-clean-example.txt"
+  },
+  "scope": {
+    "runtime_dependencies": [],
+    "handler_layout_preserved": true,
+    "public_lab_commands_preserved": true,
+    "ruff_config": "pyproject.toml",
+    "ruff_all_preserved": true,
+    "mypy_strict": true,
+    "python_roots": [
+      "src",
+      "tests",
+      "scripts",
+      "infra"
+    ],
+    "shell_helpers": [
+      "shellcheck.sh",
+      "slotscheck.sh",
+      "pip_audit.sh",
+      "pycache_del.sh"
+    ],
+    "check_targets_do_not_rewrite_sources": true
+  },
+  "checks": {
+    "baseline_make_lint": "passed",
+    "make_check_ci": {
+      "exit_code": 0,
+      "tests_passed": 106,
+      "tests_skipped": 0,
+      "pytest_duration_seconds": 96.39,
+      "ruff_and_mypy_source_files": 94,
+      "import_contracts_kept": 3,
+      "import_contracts_broken": 0,
+      "ruff": "passed",
+      "ruff_format": "passed",
+      "mypy": "passed",
+      "tombi_format": "passed",
+      "tombi_lint": "passed",
+      "deptry": "passed",
+      "shellcheck_and_bash_syntax": "passed",
+      "slotscheck": "passed",
+      "self_return": "passed"
+    },
+    "preflight_cli_parity": {
+      "fixture_configurations": 18,
+      "baseline": "HEAD before this style stage",
+      "same_exit_codes_messages_and_read_order": true,
+      "real_telegram_or_model_used": false
+    },
+    "file_hooks": {
+      "files_checked": 133,
+      "result": "passed",
+      "used_isolated_git_index": true,
+      "code_check_hook_skipped": "The full make check-ci had already passed separately."
+    },
+    "dependency_audit": {
+      "command": "make pip-audit",
+      "exit_code": 0,
+      "result": "No known vulnerabilities found",
+      "scope": "Pinned development requirements exported from uv.lock with hashes"
+    },
+    "cache_cleanup": {
+      "command": "make pycache-del",
+      "four_source_roots_cleaned": true,
+      "venv_canary_preserved": true
+    },
+    "coverage": {
+      "reported_percent": 67,
+      "branch_measurement": true,
+      "scope": "The pytest process; external CLI processes and the real VM are not collected",
+      "html_report": "htmlcov/index.html"
+    }
+  },
+  "pre_commit_hook_installed_locally": true,
+  "github_actions": {
+    "configured": true,
+    "runner": "macos-15",
+    "hosted_run_performed": false
+  },
+  "limits": [
+    "No deployment, model inference, Telegram connection or T1-T5/P1-P5 runs in this stage",
+    "The reference checkout was read only",
+    "No private runtime data was exported",
+    "Manual design review performed in this session; no independent checker"
+  ]
+}

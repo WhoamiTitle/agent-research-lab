@@ -7,29 +7,33 @@ dependencies = []
 
 [dependency-groups]
 dev = [
-    { include-group = "lint" },
-    { include-group = "test" },
+  { include-group = "lint" },
+  { include-group = "test" },
+  { include-group = "tooling" },
 ]
 lint = [
-    "import-linter>=2.5",
-    "mypy>=1.19",
-    "ruff>=0.15",
+  "deptry>=0.25",
+  "import-linter>=2.5",
+  "mypy>=1.19",
+  "ruff>=0.15",
+  "shellcheck-py>=0.11; platform_machine != 'aarch64'",
+  "slotscheck>=0.21",
+  "tombi>=1.7",
 ]
-test = ["pytest>=8.3"]
+test = ["pytest>=8.3", "pytest-cov>=7.1"]
+tooling = ["pip-audit>=2.10", "prek>=0.5"]
 
-[tool.uv]
-package = false
+[tool.coverage.run]
+branch = true
+relative_files = true
+source = ["src/agent_lab", "infra/hermes"]
 
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-pythonpath = ["src", "."]
-addopts = "-ra --strict-config --strict-markers"
+[tool.coverage.report]
+show_missing = true
+skip_empty = true
 
-[tool.mypy]
-python_version = "3.13"
-strict = true
-mypy_path = "src"
-files = ["src/agent_lab", "tests", "infra/hermes/provision.py"]
+[tool.deptry]
+root = ["src", "infra"]
 
 [tool.importlinter]
 root_package = "agent_lab"
@@ -51,3 +55,95 @@ name = "Infrastructure is independent of presentation and assembly"
 type = "forbidden"
 source_modules = ["agent_lab.infrastructure"]
 forbidden_modules = ["agent_lab.presentation", "agent_lab.main"]
+
+[tool.mypy]
+python_version = "3.13"
+strict = true
+mypy_path = ["src", "."]
+files = ["src/agent_lab", "tests", "scripts", "infra"]
+explicit_package_bases = true
+pretty = true
+warn_unreachable = true
+enable_error_code = [
+  "ignore-without-code",
+  "possibly-undefined",
+  "redundant-expr",
+  "truthy-bool",
+  "truthy-iterable",
+  "unused-awaitable",
+]
+
+[tool.pytest.ini_options]
+addopts = "-ra --strict-config --strict-markers"
+pythonpath = ["src", "."]
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py313"
+line-length = 120
+
+[tool.ruff.lint]
+preview = true
+explicit-preview-rules = true
+select = ["ALL", "RUF067"]
+ignore = [
+  "CPY001",  # The reference has no per-file copyright headers; no license policy is introduced here.
+  "D100",  # Public modules and simple contracts follow the reference's concise style.
+  "D101",
+  "D102",
+  "D103",
+  "D104",
+  "D105",
+  "D107",
+  "TRY003",  # Concrete boundary failures carry actionable messages.
+  "EM101",
+  "EM102",
+  "TC003",  # Annotations are evaluated at runtime; postponed annotations are not used.
+  "COM812",  # Ruff's formatter owns trailing commas.
+  "ISC001",
+]
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
+force-wrap-aliases = true
+split-on-trailing-comma = true
+
+[tool.ruff.lint.mccabe]
+max-complexity = 12
+
+[tool.ruff.lint.pydocstyle]
+convention = "pep257"
+
+[tool.ruff.lint.per-file-ignores]
+"src/agent_lab/presentation/cli/main.py" = ["T201"]  # CLI output is this adapter's responsibility.
+"src/agent_lab/infrastructure/process.py" = ["S603"]  # Internal argv tuples; no shell interpretation.
+"tests/fixtures/lab.py" = ["S603"]  # Runs only the wrapper in an owned temporary fixture.
+"tests/fixtures/terminal.py" = ["S603"]  # Fixed Python executable and owned PTY fixture scripts; no shell interpretation.
+"tests/integration/test_process_lifecycle.py" = ["S603"]  # Fixed Python children and owned temporary PID files.
+"tests/**" = ["S101"]  # Pytest assertions.
+
+"infra/hermes/preflight.py" = ["S603", "T201"]  # Resolved image-owned executable and literal config fields; CLI output.
+"scripts/makefile/self_return.py" = ["T201"]  # Diagnostic output of the style checker.
+
+[tool.ruff.lint.ruff]
+strictly-empty-init-modules = true
+
+[tool.ruff.lint.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+[tool.ruff.lint.flake8-tidy-imports.banned-api]
+"typing.TYPE_CHECKING".msg = "Keep imports at module level and resolve cycles at the layer boundary."
+"typing.runtime_checkable".msg = "Protocols describe static contracts; validate concrete boundary data explicitly."
+"__future__.annotations".msg = "Use declaration order, Self or a necessary explicit forward reference."
+"typing.Any".msg = "Use an explicit typed contract at the boundary."
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+
+[tool.slotscheck]
+strict-imports = true
+
+[tool.uv]
+package = false
