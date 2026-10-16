@@ -1,0 +1,21 @@
+{
+  "checked_at": "2026-10-16T16:28:55.968545+00:00",
+  "command": "docker compose run --rm hermes python3 -c <runtime diagnostics>",
+  "result": {
+    "uid": 10000,
+    "gid": 10000,
+    "docker_socket_present": false,
+    "effective_access_flags": {
+      "TELEGRAM_ALLOW_ALL_USERS": "false",
+      "GATEWAY_ALLOW_ALL_USERS": "false",
+      "GATEWAY_ALLOWED_USERS": "",
+      "TELEGRAM_GUEST_MODE": "false"
+    },
+    "memory.max": "2411724800",
+    "pids.max": "512",
+    "cpu.max": "200000 100000"
+  },
+  "scope": "Foreground command through the pinned image entrypoint; not a running Telegram gateway",
+  "display_timezone": "America/Los_Angeles",
+  "checked_at_local": "2026-10-16T09:28:55.968545-07:00"
+}

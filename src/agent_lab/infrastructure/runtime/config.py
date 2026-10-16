@@ -21,6 +21,7 @@ class RuntimeConfig:
     sync_timeout: float = 120.0
     web_install_timeout: float = 900.0
     gateway_timeout: float = 120.0
+    image_build_timeout: float = 900.0
     interactive_timeout: float = 86400.0
 
     @property

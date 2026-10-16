@@ -1,0 +1,79 @@
+{
+  "checked_at": "2026-10-16T17:05:51.489543+00:00",
+  "container": {
+    "name": "agent-research-hermes",
+    "status": "running",
+    "running": true,
+    "started_at": "2026-10-16T17:05:08.58873878Z",
+    "restart_count": 0,
+    "restart_policy": "unless-stopped",
+    "health": "not_configured",
+    "started_at_local": "2026-10-16T10:05:08.588738-07:00"
+  },
+  "selected_startup_lines_redacted": [
+    "Syncing bundled skills into ~/.hermes/skills/ ...",
+    "│           ☤ Hermes Gateway Starting...                 │",
+    "→ gateway is now running under s6 supervision (auto-restart on crash,",
+    "  gateway will keep running even if it crashes.",
+    "2026-10-16 17:05:23,808 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…",
+    "2026-10-16 17:05:24,453 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connecting to Telegram (attempt 1/8)…",
+    "2026-10-16 17:05:38,676 WARNING hermes_plugins.platforms__telegram.adapter: [Telegram] Connected to Telegram (polling mode)"
+  ],
+  "startup_error_marker_present": false,
+  "scope": "Verified credentials presence, local preflight, a running worker and Telegram polling connection. No owner dialog, outsider rejection, reboot recovery or gateway cron verified here.",
+  "credentials": {
+    "token_present": true,
+    "owner_is_single_numeric_id": true,
+    "home_channel_matches_owner": true,
+    "platform_allow_all_disabled": true,
+    "global_allow_all_disabled": true,
+    "global_allowlist_empty_or_owner": true,
+    "guest_mode_disabled": true,
+    "group_allowlists_empty": true,
+    "env_mode": "0o600",
+    "env_uid": 10000,
+    "env_gid": 10000
+  },
+  "startup_command": "./scripts/lab.sh gateway",
+  "startup_exit_code": 0,
+  "preflight_passed": true,
+  "telegram": {
+    "connected": true,
+    "mode": "polling",
+    "evidence": "Connected to Telegram (polling mode) in the startup log"
+  },
+  "gateway_worker": [
+    {
+      "container_pid": 154,
+      "uid": 10000,
+      "argument_zero": "/opt/hermes/.venv/bin/python"
+    }
+  ],
+  "init_wrapper": [
+    {
+      "container_pid": 17,
+      "uid": 0,
+      "command_name": "rc.init"
+    }
+  ],
+  "docker_socket_present": false,
+  "skill_count_loaded_by_gateway": null,
+  "format_regression": {
+    "original_error": "Gateway is not ready: 'enabled'",
+    "reason": "Hermes setup writes platforms.telegram; the old preflight read the shadowed gateway.platforms.telegram block.",
+    "fixed_field": "platforms.telegram",
+    "before_fix": {
+      "passed": 21,
+      "failed": 2
+    },
+    "after_fix_make_check_ci": {
+      "passed": 118,
+      "failed": 0,
+      "skipped": 0,
+      "pytest_duration_seconds": 37.05
+    }
+  },
+  "display_timezone": "America/Los_Angeles",
+  "checked_at_local": "2026-10-16T10:05:51.489543-07:00",
+  "startup_log_timezone": "UTC"
+}

@@ -10,9 +10,9 @@ INTERRUPT_EXIT_CODE: Final = 130
 TIMEOUT_EXIT_CODE: Final = 124
 
 
-def wrapper_terminal_script(lab_shell: LabShell, command: str) -> Path:
+def wrapper_terminal_script(lab_shell: LabShell, command: str, extra_arguments: tuple[str, ...] = ()) -> Path:
     script = lab_shell.directory / "terminal-wrapper.py"
-    arguments = (str(lab_shell.project / "scripts/lab.sh"), command)
+    arguments = (str(lab_shell.project / "scripts/lab.sh"), command, *extra_arguments)
     script.write_text(
         f"import fcntl, os, termios\nfcntl.ioctl(0, termios.TIOCSCTTY, 0)\nos.execv({arguments[0]!r}, {arguments!r})\n",
         encoding="utf-8",
@@ -20,11 +20,22 @@ def wrapper_terminal_script(lab_shell: LabShell, command: str) -> Path:
     return script
 
 
-@pytest.mark.parametrize("command", ["setup", "chat"])
-def test_interactive_command_keeps_controlling_terminal_and_input(lab_shell: LabShell, command: str) -> None:
+@pytest.mark.parametrize(
+    ("command", "extra_arguments"),
+    [
+        ("setup", ()),
+        ("setup", ("--gateway-only",)),
+        ("chat", ()),
+    ],
+)
+def test_interactive_command_keeps_controlling_terminal_and_input(
+    lab_shell: LabShell,
+    command: str,
+    extra_arguments: tuple[str, ...],
+) -> None:
     lab_shell.environment["LAB_TEST_TERMINAL"] = "1"
 
-    with open_terminal(wrapper_terminal_script(lab_shell, command), lab_shell.environment) as session:
+    with open_terminal(wrapper_terminal_script(lab_shell, command, extra_arguments), lab_shell.environment) as session:
         session.read_until(b"READY_TTY=True")
         session.write(b"two words\n")
         session.read_until(b"ANSWER=two words")

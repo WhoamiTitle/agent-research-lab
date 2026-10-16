@@ -1,0 +1,63 @@
+{
+  "checked_at_utc": "2026-10-16T18:19:59.517024+00:00",
+  "checked_at_local": "2026-10-16T11:19:59.517024-07:00",
+  "display_timezone": "America/Los_Angeles",
+  "request": "Owner reported sending /start and the agreed one-word readiness question",
+  "result": "Not confirmed: no Telegram handler reply or agent run recorded",
+  "bot_events": [
+    {
+      "timestamp": "2026-10-16T11:02:20.201324-07:00",
+      "level": "INFO",
+      "event": "bot_polling_started"
+    },
+    {
+      "timestamp": "2026-10-16T11:15:52.849675-07:00",
+      "level": "INFO",
+      "event": "bot_polling_started"
+    }
+  ],
+  "hermes": {
+    "all_persisted_runs": 1,
+    "telegram_idempotency_runs": 0,
+    "telegram_owner_api_sessions": 0
+  },
+  "telegram_api": {
+    "token_valid": true,
+    "token_preserved_from_native_gateway": true,
+    "owner_id_preserved": true,
+    "webhook_enabled": false,
+    "pending_update_count": 0
+  },
+  "runtime": {
+    "bot_running": true,
+    "restart_count": 1
+  },
+  "diagnostic_incident": {
+    "timestamp_utc": "2026-10-16T18:15:48+00:00",
+    "timestamp_local": "2026-10-16T11:15:48-07:00",
+    "cause": "Additional aiogram Python diagnostic executed inside the 256 MiB container triggered cgroup OOM",
+    "exit_code": 137,
+    "automatic_restart_observed": true,
+    "scope": "The first log check had already found no messages before this incident; the incident does not explain that earlier absence",
+    "follow_up": "Further Telegram API diagnostics run directly inside VM, outside the bot container"
+  },
+  "limits": [
+    "No successful Telegram delivery is claimed.",
+    "The prior successful generation at 11:04:18 PDT was a direct API smoke test, not the owner message.",
+    "No bot messages or extra model requests were sent during this read-only check."
+  ],
+  "next_step": "Await fresh owner messages after recipient confirmation and controlled receiver restart; earlier messages were unavailable from the empty pending queue.",
+  "identity_follow_up": {
+    "recorded_at_utc": "2026-10-16T18:32:03.456477+00:00",
+    "supplied_numeric_id_matches_configured_owner": true,
+    "supplied_numeric_id_is_bot": false,
+    "supplied_username_matches_get_me": true,
+    "queue_checked_at_utc": "2026-10-16T18:30:40.084970+00:00",
+    "queue_checked_at_local": "2026-10-16T11:30:40.084970-07:00",
+    "queue_read_without_offset": true,
+    "pending_updates_read": 0,
+    "controlled_receiver_stop_start": true,
+    "hermes_and_ollama_kept_running": true,
+    "scope": "Only receiver identity and empty pending queue confirmed; fresh dialogue still required"
+  }
+}

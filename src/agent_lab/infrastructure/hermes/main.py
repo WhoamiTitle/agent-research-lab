@@ -14,9 +14,14 @@ class HermesRuntimeImpl(HermesSetup, HermesWebDependencies, HermesChat, HermesGa
         self._config = config
         self._runner = runner
 
-    def setup(self) -> None:
+    def setup(self, *, gateway_only: bool = False) -> None:
+        if gateway_only:
+            setup = self._config.deployment_directory / "infra/bot/setup.py"
+            arguments = guest_arguments(self._config, "sudo", "python3", str(setup))
+        else:
+            arguments = compose_arguments(self._config, "run", "--rm", "hermes", "setup")
         self._runner.interactive(
-            compose_arguments(self._config, "run", "--rm", "hermes", "setup"),
+            arguments,
             timeout=self._config.interactive_timeout,
         )
 
@@ -45,10 +50,16 @@ class HermesRuntimeImpl(HermesSetup, HermesWebDependencies, HermesChat, HermesGa
                 self._config,
                 "run",
                 "--rm",
+                "--no-deps",
+                "--user",
+                "10000:10000",
+                "--entrypoint",
+                "/opt/hermes/.venv/bin/python3",
                 "-v",
                 f"{preflight}:/opt/preflight.py:ro",
+                "-v",
+                "/srv/agent-lab/bot:/opt/bot:ro",
                 "hermes",
-                "python",
                 "/opt/preflight.py",
             ),
             timeout=self._config.gateway_timeout,
@@ -61,4 +72,7 @@ class HermesRuntimeImpl(HermesSetup, HermesWebDependencies, HermesChat, HermesGa
         )
 
     def start_gateway(self) -> None:
-        self._runner.run(compose_arguments(self._config, "up", "-d"), timeout=self._config.gateway_timeout)
+        self._runner.run(
+            compose_arguments(self._config, "up", "-d", "--build", "--wait", "--wait-timeout", "90"),
+            timeout=self._config.image_build_timeout,
+        )

@@ -1,0 +1,145 @@
+{
+  "checked_at_utc": "2026-10-16T18:07:35.255598+00:00",
+  "checked_at_local": "2026-10-16T11:07:35.255598-07:00",
+  "display_timezone": "America/Los_Angeles",
+  "scope": "Custom Telegram frontend before Hermes, current P1 deployment",
+  "containers": [
+    {
+      "name": "agent-research-hermes",
+      "running": true,
+      "health": "healthy",
+      "restart_count": 0,
+      "started_at_utc": "2026-10-16T17:59:48.590339052Z",
+      "configured_user": "root",
+      "read_only_rootfs": false,
+      "restart_policy": "unless-stopped",
+      "mount_destinations": [
+        "/opt/data"
+      ],
+      "image_id": "sha256:55e192fba0cd4fde61142abbff5adeacff40efdb482ccd0ff877924bd274f909"
+    },
+    {
+      "name": "agent-research-telegram",
+      "running": true,
+      "health": null,
+      "restart_count": 0,
+      "started_at_utc": "2026-10-16T18:02:16.071640914Z",
+      "configured_user": "10000:10000",
+      "read_only_rootfs": true,
+      "restart_policy": "unless-stopped",
+      "mount_destinations": [
+        "/opt/bot"
+      ],
+      "image_id": "sha256:ba266d9800002dffaea095897587dcfe6950e69e4ffa68aa73f3888eb3048bbf"
+    }
+  ],
+  "private_settings": {
+    "frontend_token_present": true,
+    "exactly_one_numeric_owner": true,
+    "backend_telegram_token_empty": true,
+    "api_keys_match": true,
+    "strong_api_key": true,
+    "broad_access_disabled": true,
+    "group_access_empty": true,
+    "file_metadata": {
+      "data/.env": {
+        "mode": "0o600",
+        "uid": 10000,
+        "gid": 10000
+      },
+      "bot/.env": {
+        "mode": "0o600",
+        "uid": 10000,
+        "gid": 10000
+      }
+    }
+  },
+  "native_telegram_enabled": false,
+  "api_configuration": {
+    "enabled": true,
+    "host": "127.0.0.1",
+    "port": 8642,
+    "max_concurrent_runs": 1
+  },
+  "model": {
+    "provider": "custom",
+    "base_url": "http://127.0.0.1:11434/v1",
+    "context_length": 65536
+  },
+  "cloud_fallback_enabled": false,
+  "anonymous_health_status": 200,
+  "unauthenticated_run_status": 401,
+  "bot_events": [
+    {
+      "timestamp": "2026-10-16T11:02:20.201324-07:00",
+      "level": "INFO",
+      "event": "bot_polling_started"
+    }
+  ],
+  "runtime_checks": {
+    "api_listener_observed": "127.0.0.1:8642",
+    "hermes_gateway_worker_uid": 10000,
+    "ollama_processor": "100% GPU",
+    "ollama_context": 65536,
+    "evidence_source": "ss, /proc worker status, and ollama ps inspected separately during the same session",
+    "telegram_worker_uid": 10000,
+    "second_poller_rejected": true
+  },
+  "local_generation": {
+    "success": true,
+    "checked_at_utc": "2026-10-16T18:04:18.010501+00:00",
+    "checked_at_local": "2026-10-16T11:04:18.010501-07:00",
+    "client": "agent_bot.adapters.hermes.gateway.HermesGatewayImpl",
+    "elapsed_seconds": 51.76,
+    "nonempty_output": true,
+    "expected_word_received": true,
+    "response_characters": 6,
+    "runtime": {
+      "provider": "custom",
+      "model": "agent-lab-qwen:4b",
+      "route_source": "global"
+    },
+    "usage": {
+      "input_tokens": 15126,
+      "output_tokens": 4,
+      "total_tokens": 15130,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "through_telegram": false,
+    "scope": "One controlled request in a separate API session; not a performance series or a Telegram delivery test"
+  },
+  "development_checks": {
+    "make_check_ci": {
+      "exit_code": 0,
+      "passed_tests": 142,
+      "duration_seconds": 38.83,
+      "strict_typing_files": 129,
+      "import_contracts_kept": 7
+    },
+    "make_pip_audit": {
+      "exit_code": 0,
+      "known_vulnerabilities_found": false,
+      "scope": "Locked project and development dependencies; excludes managed Hermes environment"
+    },
+    "telegram_sdk_tests": "Real aiogram/Dishka handlers with local Telegram HTTP server; no messages sent to a live account",
+    "file_hooks": {
+      "exit_code": 0,
+      "code_check": "Skipped in hooks because final make check-ci already passed"
+    },
+    "private_value_scan": {
+      "exit_code": 0,
+      "checked_at_utc": "2026-10-16T18:10:00.163064+00:00",
+      "scanned_files": 183,
+      "private_values_found": false,
+      "scope": "Tracked files and selected new project files; original untracked preparation logs excluded",
+      "method": "Candidate files compared inside VM with saved bot token, owner ID, and API key; values never exported"
+    }
+  },
+  "limits": [
+    "Live owner dialogue through the custom Telegram bot has not yet been performed.",
+    "Outsider rejection is covered with synthetic updates; no real second-account check yet.",
+    "VM reboot, native cron autonomy under the permanent gateway, tool execution through this frontend, and scheduled Telegram delivery are not verified by this record.",
+    "Scheduled notifications and durable outbound delivery are not implemented in the custom bot."
+  ]
+}

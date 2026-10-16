@@ -18,6 +18,7 @@ terminal:
 platform_toolsets:
   cli: [terminal, file, memory, skills, web, browser, cronjob]
   telegram: [terminal, file, memory, skills, web, browser]
+  api_server: [terminal, file, memory, skills, web, browser, cronjob]
 web:
   search_backend: ddgs
 browser:
@@ -28,12 +29,22 @@ browser:
 memory:
   memory_enabled: true
   user_profile_enabled: true
+unauthorized_dm_behavior: ignore
 gateway:
-  platforms:
-    telegram:
-      enabled: false
-      extra:
-        guest_mode: false
+  allow_all_users: false
+  api_server:
+    max_concurrent_runs: 1
+platforms:
+  telegram:
+    enabled: false
+    extra:
+      guest_mode: false
+      unauthorized_dm_behavior: ignore
+  api_server:
+    enabled: true
+    extra:
+      host: 127.0.0.1
+      port: 8642
 
 # DDGS search does not require an API key. Page reading uses the bundled
-# browser. Scheduler tools are prepared; no research jobs are authorized.
+# browser. Only P1 readiness and autonomy checks are currently authorized.

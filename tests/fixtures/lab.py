@@ -131,7 +131,8 @@ if name == "limactl" and "tar" in arguments:
     (provider / "deployment.tar").write_bytes(sys.stdin.buffer.read())
 if name == "limactl" and "bash" in arguments:
     (provider / "guest-program").write_text(sys.stdin.read())
-if name == "limactl" and "hermes" in arguments and os.environ["LAB_TEST_TERMINAL"] == "1":
+interactive = "hermes" in arguments or any(arg.endswith("/infra/bot/setup.py") for arg in arguments)
+if name == "limactl" and interactive and os.environ["LAB_TEST_TERMINAL"] == "1":
     with open("/dev/tty") as terminal:
         foreground = os.tcgetpgrp(terminal.fileno()) == os.getpgrp()
     print("READY_TTY=" + str(sys.stdin.isatty() and sys.stdout.isatty() and foreground), flush=True)
@@ -156,7 +157,10 @@ def build_lab_shell(directory: Path) -> LabShell:
     shutil.copy2(source / "scripts/lab.sh", scripts / "lab.sh")
     shutil.copytree(source / "src", project / "src", ignore=shutil.ignore_patterns("__pycache__"))
     shutil.copytree(source / "infra/hermes", project / "infra/hermes", ignore=shutil.ignore_patterns("__pycache__"))
+    shutil.copytree(source / "infra/bot", project / "infra/bot", ignore=shutil.ignore_patterns("__pycache__"))
     shutil.copytree(source / "templates", project / "templates")
+    for filename in ("pyproject.toml", "uv.lock", ".dockerignore"):
+        shutil.copy2(source / filename, project / filename)
     (project / "infra/ollama").mkdir()
     shutil.copy2(source / "infra/ollama/Modelfile", project / "infra/ollama/Modelfile")
     tools = directory / "bin"

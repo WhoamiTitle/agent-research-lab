@@ -1,0 +1,48 @@
+{
+  "checked_at_utc": "2026-10-16T18:48:31.263146+00:00",
+  "checked_at_local": "2026-10-16T11:48:31.263146-07:00",
+  "display_timezone": "America/Los_Angeles",
+  "result": "Live welcome/help response and /status reply confirmed by bot logs and owner screenshot",
+  "bot_events": [
+    {
+      "timestamp_local": "2026-10-16T11:30:44.015682-07:00",
+      "timestamp_utc": "2026-10-16T18:30:44.015682+00:00",
+      "event": "bot_polling_started"
+    },
+    {
+      "timestamp_local": "2026-10-16T11:46:55.054549-07:00",
+      "timestamp_utc": "2026-10-16T18:46:55.054549+00:00",
+      "event": "reply_sent"
+    },
+    {
+      "timestamp_local": "2026-10-16T11:46:57.907028-07:00",
+      "timestamp_utc": "2026-10-16T18:46:57.907028+00:00",
+      "event": "reply_sent"
+    }
+  ],
+  "telegram_agent_runs": 0,
+  "screenshot": {
+    "file": "telegram-commands.png",
+    "provided_by_owner": true,
+    "sha256": "815022d28fb199fc5fcc590ff5693eae9edf83fdec0d1dde0e44bdb56b0dea33",
+    "source_bytes_preserved": true,
+    "visible_responses": [
+      "Welcome/help for Agent Research Lab",
+      "Hermes availability response to /status"
+    ],
+    "visible_clock": "03:46",
+    "clock_timezone_not_embedded": true
+  },
+  "verified": {
+    "owner_receives_replies": true,
+    "telegram_receive_and_send_path_works": true,
+    "hermes_health_check_works": true,
+    "ollama_generation_through_telegram": false
+  },
+  "limits": [
+    "Welcome/help and /status do not invoke the LLM.",
+    "No Telegram agent run has been recorded as of the check.",
+    "Previous absence of messages remains unexplained; this record does not attribute the later success to a code fix."
+  ],
+  "next_step": "Send a normal text question to invoke Hermes and Ollama, without a slash command."
+}

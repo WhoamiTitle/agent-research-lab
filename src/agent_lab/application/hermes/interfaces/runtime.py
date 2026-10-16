@@ -10,7 +10,7 @@ class HermesSetup(Protocol):
     """
 
     @abstractmethod
-    def setup(self) -> None: ...
+    def setup(self, *, gateway_only: bool = False) -> None: ...
 
 
 class HermesWebDependencies(Protocol):

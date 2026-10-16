@@ -1,0 +1,11 @@
+*
+!pyproject.toml
+!uv.lock
+!src/
+src/*
+!src/agent_bot/
+!src/agent_bot/**
+!infra/
+infra/*
+!infra/bot/
+!infra/bot/Dockerfile

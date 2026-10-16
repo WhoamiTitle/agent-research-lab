@@ -9,7 +9,7 @@ from agent_lab.application.common.exceptions import StandOperationError
 from agent_lab.application.deployment.commands.sync_deployment import SyncDeploymentHandler
 from agent_lab.application.hermes.commands.chat_with_agent import ChatWithAgent, ChatWithAgentHandler
 from agent_lab.application.hermes.commands.install_web_dependencies import InstallWebDependenciesHandler
-from agent_lab.application.hermes.commands.setup_agent import SetupAgentHandler
+from agent_lab.application.hermes.commands.setup_agent import SetupAgent, SetupAgentHandler
 from agent_lab.application.hermes.commands.start_gateway import StartGatewayHandler
 from agent_lab.application.model.commands.prepare_model import PrepareModelHandler
 from agent_lab.application.stand.commands.start_stand import StartStandHandler
@@ -82,7 +82,7 @@ class LabCli:
             case Command.SYNC:
                 self._handlers.sync_deployment()
             case Command.SETUP:
-                self._handlers.setup_agent()
+                self._handlers.setup_agent(SetupAgent(gateway_only="--gateway-only" in arguments))
             case Command.WEB_DEPS:
                 self._handlers.install_web_dependencies()
             case Command.CHAT:

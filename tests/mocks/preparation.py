@@ -26,8 +26,8 @@ class PreparationMock(
     def prepare_guest(self) -> None:
         self.calls.append(("prepare", ()))
 
-    def setup(self) -> None:
-        self.calls.append(("setup", ()))
+    def setup(self, *, gateway_only: bool = False) -> None:
+        self.calls.append(("setup", ("gateway",) if gateway_only else ()))
 
     def install_search_dependency(self) -> None:
         self.calls.append(("search", ()))

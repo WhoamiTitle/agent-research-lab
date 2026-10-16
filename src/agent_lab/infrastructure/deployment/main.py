@@ -24,7 +24,15 @@ class DeploymentPreparationImpl(DeploymentPreparation):
         try:
             with tempfile.TemporaryFile() as source:
                 with tarfile.open(fileobj=source, mode="w") as archive:
-                    for directory in ("infra/hermes", "templates"):
+                    for directory in (
+                        "infra/hermes",
+                        "infra/bot",
+                        "templates",
+                        "src/agent_bot",
+                        "pyproject.toml",
+                        "uv.lock",
+                        ".dockerignore",
+                    ):
                         archive.add(
                             self._config.project_root / directory,
                             arcname=directory,

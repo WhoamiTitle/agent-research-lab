@@ -1,0 +1,52 @@
+{
+  "checked_at": "2026-10-16T17:07:57.087328+00:00",
+  "scope": "Code checks for the P1 access guard and local setup command; does not test a real Telegram account",
+  "initial_regression_check": {
+    "date": "2026-10-15",
+    "passed": 13,
+    "failed": 5,
+    "missing_controls": [
+      "TELEGRAM_ALLOW_ALL_USERS",
+      "GATEWAY_ALLOW_ALL_USERS",
+      "foreign and wildcard GATEWAY_ALLOWED_USERS",
+      "reading global gateway fields from the private environment"
+    ]
+  },
+  "make_check_ci": {
+    "exit_code": 0,
+    "tests_passed": 118,
+    "tests_failed": 0,
+    "tests_skipped": 0,
+    "pytest_duration_seconds": 37.05,
+    "typed_and_formatted_files": 94,
+    "import_contracts_kept": 3,
+    "import_contracts_broken": 0
+  },
+  "previous_test_issue": {
+    "date": "2026-10-15",
+    "description": "The setup PTY test exceeded its five-second read deadline in a full run; 113 tests passed and one failed.",
+    "isolated_retry": "passed in 4.77 seconds",
+    "test_timeouts_changed": false,
+    "root_cause_established": false
+  },
+  "runtime_acceptance": "Telegram polling connection verified. Owner dialog, outsider rejection, gateway reboot recovery and gateway cron remain pending.",
+  "gateway_only_setup": {
+    "wrapper_command": "./scripts/lab.sh setup --gateway-only",
+    "native_command": [
+      "hermes",
+      "setup",
+      "gateway"
+    ],
+    "argument_routing_and_terminal_input": "Verified by integration tests with a substitute runtime",
+    "wizard_with_real_bot": "Completed locally by the user; token and ID presence confirmed without exporting their values"
+  },
+  "setup_format_regression": {
+    "original_error": "Gateway is not ready: 'enabled'",
+    "effective_telegram_field": "platforms.telegram",
+    "before_fix_passed": 21,
+    "before_fix_failed": 2,
+    "after_fix_passed": 118
+  },
+  "display_timezone": "America/Los_Angeles",
+  "checked_at_local": "2026-10-16T10:07:57.087328-07:00"
+}

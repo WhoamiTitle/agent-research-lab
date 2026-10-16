@@ -1,0 +1,73 @@
+{
+  "checked_at": "2026-10-15T14:55:20.748793+00:00",
+  "stage": "P1 infrastructure checks; Telegram gateway is not configured",
+  "host": {
+    "platform": "Darwin",
+    "architecture": "arm64",
+    "memory_bytes": 17179869184
+  },
+  "vm": {
+    "name": "agent-research",
+    "status": "Running",
+    "vmType": "vz",
+    "arch": "aarch64",
+    "cpus": 2,
+    "memory": 3221225472,
+    "disk": 25769803776,
+    "limaVersion": "2.2.1"
+  },
+  "guest": {
+    "kernel": "Linux 6.8.0-142-generic aarch64",
+    "docker": "29.9.1",
+    "compose": "5.6.0",
+    "docker_active": "active",
+    "docker_enabled": "enabled",
+    "researcher_uid": "10000",
+    "researcher_in_docker_group": false,
+    "ssh": {
+      "permitrootlogin": "no",
+      "passwordauthentication": "no",
+      "kbdinteractiveauthentication": "no",
+      "x11forwarding": "no",
+      "allowagentforwarding": "no"
+    },
+    "shared_mounts": [],
+    "private_files": {
+      ".env": {
+        "mode": "0o600",
+        "uid": 10000,
+        "gid": 10000
+      },
+      "config.yaml": {
+        "mode": "0o640",
+        "uid": 10000,
+        "gid": 10000
+      }
+    },
+    "skill_files_on_disk": 59,
+    "skill_file_owners": [
+      10000
+    ],
+    "firewall": "Status: active\n\nTo                         Action      From\n--                         ------      ----\n22/tcp                     ALLOW       Anywhere                  \n22/tcp (v6)                ALLOW       Anywhere (v6)             \n\n192.168.5.2 53/udp         ALLOW OUT   Anywhere                  \n192.168.5.2 53/tcp         ALLOW OUT   Anywhere                  \n10.0.0.0/8                 DENY OUT    Anywhere                  \n172.16.0.0/12              DENY OUT    Anywhere                  \n192.168.0.0/16             DENY OUT    Anywhere                  \n169.254.0.0/16             DENY OUT    Anywhere                  \n192.168.5.3 53/udp         ALLOW OUT   Anywhere                  \n192.168.5.3 53/tcp         ALLOW OUT   Anywhere                  \nfc00::/7                   DENY OUT    Anywhere (v6)",
+    "registry_dns_resolves": true
+  },
+  "hermes_image": "nousresearch/hermes-agent@sha256:55e192fba0cd4fde61142abbff5adeacff40efdb482ccd0ff877924bd274f909",
+  "ollama": {
+    "version": "0.35.1",
+    "model": "agent-lab-qwen:4b",
+    "digest": "338d8b68d59f40bcfbbeffced53f2f4039bd180f5cd7cd79be5754359b215311",
+    "parameters": "num_predict                    2048\npresence_penalty               1.5\ntemperature                    0.2\ntop_k                          20\ntop_p                          0.95\nnum_ctx                        65536",
+    "capabilities": [
+      "completion",
+      "vision",
+      "tools",
+      "thinking"
+    ]
+  },
+  "limits": [
+    "Skill file count does not prove the gateway loaded those skills.",
+    "No Telegram dialog, outsider rejection, gateway reboot recovery or gateway cron execution has been tested in P1 yet."
+  ],
+  "display_timezone": "America/Los_Angeles",
+  "checked_at_local": "2026-10-15T07:55:20.748793-07:00"
+}

@@ -31,11 +31,35 @@ def test_model_preserves_pull_create_order_and_path_with_spaces(lab_shell: LabSh
     ]
 
 
-def test_setup_preserves_compose_invocation(lab_shell: LabShell) -> None:
-    result = lab_shell.run(("setup",))
+@pytest.mark.parametrize(
+    ("arguments", "section"),
+    [
+        (("setup",), ()),
+        (("setup", "--gateway-only"), ("gateway",)),
+    ],
+)
+def test_setup_preserves_compose_invocation(
+    lab_shell: LabShell,
+    arguments: tuple[str, ...],
+    section: tuple[str, ...],
+) -> None:
+    result = lab_shell.run(arguments)
 
     assert result.returncode == 0, result.stderr
-    assert lab_shell.commands() == [[*COMPOSE, "run", "--rm", "hermes", "setup"]]
+    if section:
+        assert lab_shell.commands() == [
+            [
+                "limactl",
+                "shell",
+                "agent-research",
+                "--",
+                "sudo",
+                "python3",
+                "/srv/agent-lab/deployment/infra/bot/setup.py",
+            ]
+        ]
+    else:
+        assert lab_shell.commands() == [[*COMPOSE, "run", "--rm", "hermes", "setup"]]
 
 
 def test_web_dependencies_preserve_install_order(lab_shell: LabShell) -> None:
@@ -59,10 +83,16 @@ def test_gateway_checks_configuration_and_connection_before_start(lab_shell: Lab
             *COMPOSE,
             "run",
             "--rm",
+            "--no-deps",
+            "--user",
+            "10000:10000",
+            "--entrypoint",
+            "/opt/hermes/.venv/bin/python3",
             "-v",
             "/srv/agent-lab/deployment/infra/hermes/preflight.py:/opt/preflight.py:ro",
+            "-v",
+            "/srv/agent-lab/bot:/opt/bot:ro",
             "hermes",
-            "python",
             "/opt/preflight.py",
         ],
         [
@@ -76,7 +106,7 @@ def test_gateway_checks_configuration_and_connection_before_start(lab_shell: Lab
             "5",
             "http://127.0.0.1:11434/api/version",
         ],
-        [*COMPOSE, "up", "-d"],
+        [*COMPOSE, "up", "-d", "--build", "--wait", "--wait-timeout", "90"],
     ]
 
 
@@ -98,7 +128,13 @@ def test_sync_transfers_only_deployment_files_and_skips_python_cache(lab_shell: 
     assert "templates/hermes.env.example" in names
     assert "templates/memory/MEMORY.md" in names
     assert "templates/skills/lab-readiness/SKILL.md" in names
-    assert all(name.startswith(("infra/hermes", "templates")) for name in names)
+    assert "src/agent_bot/main/telegram.py" in names
+    assert "infra/bot/Dockerfile" in names
+    assert all(
+        name.startswith(("infra/hermes", "infra/bot", "templates", "src/agent_bot"))
+        or name in {"pyproject.toml", "uv.lock", ".dockerignore"}
+        for name in names
+    )
     assert not any("__pycache__" in name or name.endswith(".pyc") for name in names)
     assert lab_shell.commands()[0] == [
         "limactl",

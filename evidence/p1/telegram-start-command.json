@@ -1,0 +1,47 @@
+{
+  "checked_at": "2026-10-16T17:16:06.189316+00:00",
+  "start_events": [
+    {
+      "timestamp_utc": "2026-10-16 17:12:25,719",
+      "ignored_platform_ping": true,
+      "matches_configured_owner": true,
+      "timestamp_local": "2026-10-16T10:12:25.719-07:00"
+    },
+    {
+      "timestamp_utc": "2026-10-16 17:12:38,560",
+      "ignored_platform_ping": true,
+      "matches_configured_owner": true,
+      "timestamp_local": "2026-10-16T10:12:38.560-07:00"
+    }
+  ],
+  "sessions_created_since_gateway_start": 0,
+  "session_api_calls_since_gateway_start": 0,
+  "stored_model_messages_since_gateway_start": 0,
+  "ollama": {
+    "log_lines_total": 167,
+    "log_lines_parsed": 167,
+    "inference_requests_since_gateway_start": [],
+    "last_inference_request": {
+      "timestamp_utc": "2026-10-10T04:54:48+00:00",
+      "status": 200,
+      "method": "POST",
+      "path": "/v1/chat/completions",
+      "timestamp_local": "2026-10-09T21:54:48-07:00"
+    }
+  },
+  "installed_handler": {
+    "file": "/opt/hermes/gateway/run_inbound.py",
+    "method": "_hm_cmd_start",
+    "behavior": "Logs Ignoring /start platform ping for session and returns a handled command with an empty reply.",
+    "telegram_auth_check": "/opt/hermes/plugins/platforms/telegram/adapter.py::_handle_command checks authorization before dispatch"
+  },
+  "conclusion": {
+    "start_received_from_configured_owner": true,
+    "start_ignored_as_platform_ping": true,
+    "model_reply_triggered": false,
+    "ollama_generation_verified": false
+  },
+  "scope": "Only /start delivery was verified. A plain-text message is required to verify an Ollama response through Telegram.",
+  "display_timezone": "America/Los_Angeles",
+  "checked_at_local": "2026-10-16T10:16:06.189316-07:00"
+}

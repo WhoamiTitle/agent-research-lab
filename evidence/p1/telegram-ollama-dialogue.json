@@ -1,0 +1,171 @@
+{
+  "checked_at_utc": "2026-10-16T20:03:46.829018+00:00",
+  "checked_at_local": "2026-10-16T13:03:46.829018-07:00",
+  "display_timezone": "America/Los_Angeles",
+  "window_utc": {
+    "from": "2026-10-16T20:00:00+00:00",
+    "until": "2026-10-16T20:02:00+00:00"
+  },
+  "result": "Telegram to custom bot to Hermes to local Ollama to successful Telegram send confirmed",
+  "controlled_question": "Ответь одним словом: готов",
+  "bot_events": [
+    {
+      "timestamp_local": "2026-10-16T13:00:10.852934-07:00",
+      "timestamp_utc": "2026-10-16T20:00:10.852934+00:00",
+      "level": "INFO",
+      "event": "hermes_run_admitted"
+    },
+    {
+      "timestamp_local": "2026-10-16T13:01:02.671260-07:00",
+      "timestamp_utc": "2026-10-16T20:01:02.671260+00:00",
+      "level": "INFO",
+      "event": "hermes_run_completed"
+    },
+    {
+      "timestamp_local": "2026-10-16T13:01:03.032985-07:00",
+      "timestamp_utc": "2026-10-16T20:01:03.032985+00:00",
+      "level": "INFO",
+      "event": "reply_sent"
+    },
+    {
+      "timestamp_local": "2026-10-16T13:01:03.220312-07:00",
+      "timestamp_utc": "2026-10-16T20:01:03.220312+00:00",
+      "level": "INFO",
+      "event": "hermes_run_admitted"
+    },
+    {
+      "timestamp_local": "2026-10-16T13:01:04.236526-07:00",
+      "timestamp_utc": "2026-10-16T20:01:04.236526+00:00",
+      "level": "INFO",
+      "event": "hermes_run_completed"
+    },
+    {
+      "timestamp_local": "2026-10-16T13:01:04.417950-07:00",
+      "timestamp_utc": "2026-10-16T20:01:04.417950+00:00",
+      "level": "INFO",
+      "event": "reply_sent"
+    },
+    {
+      "timestamp_local": "2026-10-16T13:01:04.612066-07:00",
+      "timestamp_utc": "2026-10-16T20:01:04.612066+00:00",
+      "level": "INFO",
+      "event": "reply_sent"
+    }
+  ],
+  "telegram_hermes_runs": [
+    {
+      "status": "completed",
+      "created_at_utc": "2026-10-16T20:00:10.848302+00:00",
+      "updated_at_utc": "2026-10-16T20:01:02.307163+00:00",
+      "expected_output_confirmed": true,
+      "controlled_output": "Готов.",
+      "runtime": {
+        "provider": "custom",
+        "model": "agent-lab-qwen:4b",
+        "route_source": "global"
+      },
+      "usage": {
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "input_tokens": 15125,
+        "output_tokens": 4,
+        "total_tokens": 15129
+      }
+    },
+    {
+      "status": "completed",
+      "created_at_utc": "2026-10-16T20:01:03.206846+00:00",
+      "updated_at_utc": "2026-10-16T20:01:04.064025+00:00",
+      "expected_output_confirmed": true,
+      "controlled_output": "Готов.",
+      "runtime": {
+        "provider": "custom",
+        "model": "agent-lab-qwen:4b",
+        "route_source": "global"
+      },
+      "usage": {
+        "cache_read_tokens": 15121,
+        "cache_write_tokens": 0,
+        "input_tokens": 15144,
+        "output_tokens": 4,
+        "total_tokens": 15148
+      }
+    }
+  ],
+  "conversation_verification": [
+    {
+      "role": "user",
+      "matches_control_question": true,
+      "matches_control_output": null
+    },
+    {
+      "role": "assistant",
+      "matches_control_question": null,
+      "matches_control_output": true
+    },
+    {
+      "role": "user",
+      "matches_control_question": true,
+      "matches_control_output": null
+    },
+    {
+      "role": "assistant",
+      "matches_control_question": null,
+      "matches_control_output": true
+    }
+  ],
+  "correlated_request_traces": [
+    {
+      "admitted_at_local": "2026-10-16T13:00:10.852934-07:00",
+      "completed_at_local": "2026-10-16T13:01:02.671260-07:00",
+      "telegram_reply_sent_at_local": "2026-10-16T13:01:03.032985-07:00",
+      "admission_to_reply_seconds": 52.18
+    },
+    {
+      "admitted_at_local": "2026-10-16T13:01:03.220312-07:00",
+      "completed_at_local": "2026-10-16T13:01:04.236526-07:00",
+      "telegram_reply_sent_at_local": "2026-10-16T13:01:04.417950-07:00",
+      "admission_to_reply_seconds": 1.198
+    }
+  ],
+  "limits": [
+    "Two controlled text requests, not a performance or reliability series.",
+    "Telegram reply_sent records successful Bot API sending; the owner reading the response is not checked.",
+    "This check does not verify reboot autonomy, scheduling, tool execution, or access from a second account."
+  ],
+  "ollama": {
+    "events": [
+      {
+        "source_timestamp": "2026/10/17 05:01:02",
+        "source_timezone": "Asia/Yakutsk",
+        "timestamp_utc": "2026-10-16T20:01:02+00:00",
+        "timestamp_local": "2026-10-16T13:01:02-07:00",
+        "http_status": 200,
+        "duration": "50.678283917s",
+        "method": "POST",
+        "path": "/v1/chat/completions"
+      },
+      {
+        "source_timestamp": "2026/10/17 05:01:03",
+        "source_timezone": "Asia/Yakutsk",
+        "timestamp_utc": "2026-10-16T20:01:03+00:00",
+        "timestamp_local": "2026-10-16T13:01:03-07:00",
+        "http_status": 200,
+        "duration": "1.2686535s",
+        "method": "POST",
+        "path": "/v1/chat/completions"
+      },
+      {
+        "source_timestamp": "2026/10/17 05:01:04",
+        "source_timezone": "Asia/Yakutsk",
+        "timestamp_utc": "2026-10-16T20:01:04+00:00",
+        "timestamp_local": "2026-10-16T13:01:04-07:00",
+        "http_status": 200,
+        "duration": "791.353667ms",
+        "method": "POST",
+        "path": "/v1/chat/completions"
+      }
+    ],
+    "correlation_scope": "Same time window as the two controlled Telegram runs; additional model calls are not mapped one-to-one to user requests."
+  }
+}

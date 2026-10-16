@@ -1,0 +1,12 @@
+{
+  "checked_at": "2026-10-16T16:30:22.844239+00:00",
+  "command": "./scripts/lab.sh gateway",
+  "exit_code": 1,
+  "preflight_messages": [
+    "Gateway is not ready: Set exactly your own numeric TELEGRAM_ALLOWED_USERS in the private .env."
+  ],
+  "persistent_gateway_container_created": false,
+  "scope": "Real local deployment without Telegram credentials; proves startup refusal, not outsider rejection",
+  "display_timezone": "America/Los_Angeles",
+  "checked_at_local": "2026-10-16T09:30:22.844239-07:00"
+}

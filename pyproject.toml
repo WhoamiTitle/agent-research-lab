@@ -3,7 +3,12 @@ name = "agent-research-lab"
 version = "0.1.0"
 description = "Local preparation tools for the autonomous agent research assignment"
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+  "aiogram==3.31.0",
+  "dishka==1.10.1",
+  "httpx==0.28.1",
+  "pydantic==2.12.5",
+]
 
 [dependency-groups]
 dev = [
@@ -20,13 +25,18 @@ lint = [
   "slotscheck>=0.21",
   "tombi>=1.7",
 ]
-test = ["pytest>=8.3", "pytest-cov>=7.1"]
+test = [
+  "aiohttp>=3.14.5",
+  "pytest>=8.3",
+  "pytest-asyncio>=1.3",
+  "pytest-cov>=7.1",
+]
 tooling = ["pip-audit>=2.10", "prek>=0.5"]
 
 [tool.coverage.run]
 branch = true
 relative_files = true
-source = ["src/agent_lab", "infra/hermes"]
+source = ["src/agent_lab", "src/agent_bot", "infra/hermes"]
 
 [tool.coverage.report]
 show_missing = true
@@ -36,7 +46,7 @@ skip_empty = true
 root = ["src", "infra"]
 
 [tool.importlinter]
-root_package = "agent_lab"
+root_packages = ["agent_lab", "agent_bot"]
 
 [[tool.importlinter.contracts]]
 name = "Application is independent of adapters and assembly"
@@ -56,11 +66,35 @@ type = "forbidden"
 source_modules = ["agent_lab.infrastructure"]
 forbidden_modules = ["agent_lab.presentation", "agent_lab.main"]
 
+[[tool.importlinter.contracts]]
+name = "Bot entities are independent of application and adapters"
+type = "forbidden"
+source_modules = ["agent_bot.entities"]
+forbidden_modules = ["agent_bot.application", "agent_bot.adapters", "agent_bot.presentation", "agent_bot.main"]
+
+[[tool.importlinter.contracts]]
+name = "Bot application uses its own ports"
+type = "forbidden"
+source_modules = ["agent_bot.application"]
+forbidden_modules = ["agent_bot.adapters", "agent_bot.presentation", "agent_bot.main"]
+
+[[tool.importlinter.contracts]]
+name = "Bot adapters are independent of presentation and assembly"
+type = "forbidden"
+source_modules = ["agent_bot.adapters"]
+forbidden_modules = ["agent_bot.presentation", "agent_bot.main"]
+
+[[tool.importlinter.contracts]]
+name = "Telegram presentation uses the application boundary"
+type = "forbidden"
+source_modules = ["agent_bot.presentation"]
+forbidden_modules = ["agent_bot.adapters", "agent_bot.main"]
+
 [tool.mypy]
 python_version = "3.13"
 strict = true
 mypy_path = ["src", "."]
-files = ["src/agent_lab", "tests", "scripts", "infra"]
+files = ["src", "tests", "scripts", "infra"]
 explicit_package_bases = true
 pretty = true
 warn_unreachable = true
@@ -77,6 +111,7 @@ enable_error_code = [
 addopts = "-ra --strict-config --strict-markers"
 pythonpath = ["src", "."]
 testpaths = ["tests"]
+asyncio_mode = "auto"
 
 [tool.ruff]
 target-version = "py313"
@@ -123,6 +158,7 @@ convention = "pep257"
 "tests/**" = ["S101"]  # Pytest assertions.
 
 "infra/hermes/preflight.py" = ["S603", "T201"]  # Resolved image-owned executable and literal config fields; CLI output.
+"infra/bot/setup.py" = ["S603", "T201"]  # Resolved VM Docker executable with fixed configuration fields; private setup CLI.
 "scripts/makefile/self_return.py" = ["T201"]  # Diagnostic output of the style checker.
 
 [tool.ruff.lint.ruff]
