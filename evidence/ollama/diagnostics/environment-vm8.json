@@ -1,0 +1,9 @@
+{
+  "host_cpu": "Apple M4",
+  "host_memory_bytes": "17179869184",
+  "host_logical_cpus": "10",
+  "host_swap_before_docker": "vm.swapusage: total = 5120.00M  used = 4128.69M  free = 991.31M  (encrypted)",
+  "vm_resources": "2 8589934592",
+  "containers": "",
+  "power_source": "AC Power"
+}

@@ -6,12 +6,13 @@ from agent_lab.application.hermes.commands.start_gateway import StartGatewayHand
 from agent_lab.application.model.commands.prepare_model import PrepareModelHandler
 from agent_lab.application.stand.commands.start_stand import StartStandHandler
 from agent_lab.application.stand.commands.stop_stand import StopStandHandler
+from agent_lab.application.stand.components import StandComponent
 from agent_lab.application.stand.queries.get_stand_status import GetStandStatusHandler
 from agent_lab.infrastructure.deployment.main import DeploymentPreparationImpl
 from agent_lab.infrastructure.hermes.main import HermesRuntimeImpl
 from agent_lab.infrastructure.model.main import LocalModelImpl
 from agent_lab.infrastructure.process import ProcessRunner
-from agent_lab.infrastructure.runtime.config import RuntimeConfig
+from agent_lab.infrastructure.runtime.config import OllamaBackend, RuntimeConfig
 from agent_lab.infrastructure.runtime.launchd import LaunchdServicesImpl
 from agent_lab.infrastructure.runtime.lock import LifecycleLockImpl
 from agent_lab.infrastructure.runtime.main import LocalRuntimeImpl
@@ -22,8 +23,13 @@ def init_cli(config: RuntimeConfig) -> LabCli:
     runner = ProcessRunner()
     runtime = LocalRuntimeImpl(config, runner, LaunchdServicesImpl(config, runner), LifecycleLockImpl(config))
     hermes = HermesRuntimeImpl(config, runner)
+    components = (
+        (StandComponent.VM, StandComponent.OLLAMA)
+        if config.ollama_backend == OllamaBackend.DOCKER
+        else tuple(StandComponent)
+    )
     handlers = CliHandlers(
-        start_stand=StartStandHandler(runtime),
+        start_stand=StartStandHandler(runtime, components),
         stop_stand=StopStandHandler(runtime),
         get_stand_status=GetStandStatusHandler(runtime),
         prepare_model=PrepareModelHandler(LocalModelImpl(config, runner)),

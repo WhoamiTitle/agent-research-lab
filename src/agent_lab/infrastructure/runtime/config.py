@@ -1,11 +1,18 @@
 from dataclasses import dataclass
+from enum import StrEnum
 from pathlib import Path, PurePosixPath
+
+
+class OllamaBackend(StrEnum):
+    MAC = "mac"
+    DOCKER = "docker"
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
 class RuntimeConfig:
     project_root: Path
     home_directory: Path
+    ollama_backend: OllamaBackend = OllamaBackend.MAC
     vm_name: str = "agent-research"
     compose_path: str = "/srv/agent-lab/deployment/infra/hermes/compose.yaml"
     vm_start_timeout: float = 600.0

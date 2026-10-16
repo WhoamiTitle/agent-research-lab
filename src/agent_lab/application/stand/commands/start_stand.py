@@ -4,14 +4,15 @@ from agent_lab.application.stand.interfaces.runtime import StandStartup
 
 
 class StartStandHandler:
-    def __init__(self, startup: StandStartup) -> None:
+    def __init__(self, startup: StandStartup, components: tuple[StandComponent, ...] = tuple(StandComponent)) -> None:
         self._startup = startup
+        self._components = components
 
     def __call__(self) -> None:
         with self._startup.exclusive():
             owned_components: list[StandComponent] = []
             try:
-                for component in StandComponent:
+                for component in self._components:
                     if not self._startup.is_started(component):
                         # Register before mutation: a timeout can leave the job loaded.
                         owned_components.append(component)

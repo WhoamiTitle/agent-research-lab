@@ -1,0 +1,17 @@
+{
+  "recorded_at_utc": "2026-10-16T20:48:11.978270+00:00",
+  "recorded_at_local": "2026-10-16T13:48:11.978270-07:00",
+  "host_cpu": "Apple M4",
+  "host_memory_bytes": 17179869184,
+  "host_logical_cpus": 10,
+  "vm_cpus": 2,
+  "vm_memory_bytes": 10737418240,
+  "power_source": "AC Power",
+  "host_swap_after_runs": "vm.swapusage: total = 5120.00M  used = 4151.00M  free = 969.00M  (encrypted)",
+  "docker_container_memory_limit_bytes": 7516192768,
+  "execution_order": [
+    "docker-cpu.json",
+    "mac-metal.json"
+  ],
+  "comparison_scope": "Two deployment modes on one Mac; GPU Metal versus Linux VM CPU, not pure container overhead"
+}

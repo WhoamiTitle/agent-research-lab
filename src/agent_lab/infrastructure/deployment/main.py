@@ -27,6 +27,7 @@ class DeploymentPreparationImpl(DeploymentPreparation):
                     for directory in (
                         "infra/hermes",
                         "infra/bot",
+                        "infra/ollama",
                         "templates",
                         "src/agent_bot",
                         "pyproject.toml",

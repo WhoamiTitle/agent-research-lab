@@ -1,0 +1,157 @@
+{
+  "checked_at_utc": "2026-10-16T20:37:14.860351+00:00",
+  "checked_at_local": "2026-10-16T13:37:14.865499-07:00",
+  "backend": "mac",
+  "version": {
+    "version": "0.35.1"
+  },
+  "available_models": {
+    "models": [
+      {
+        "name": "agent-lab-qwen:4b",
+        "model": "agent-lab-qwen:4b",
+        "modified_at": "2026-10-10T12:57:37.492877999+09:00",
+        "size": 3324173971,
+        "digest": "338d8b68d59f40bcfbbeffced53f2f4039bd180f5cd7cd79be5754359b215311",
+        "details": {
+          "parent_model": "qwen3.5:4b",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.2B",
+          "quantization_level": "Q4_K_M",
+          "context_length": 262144,
+          "embedding_length": 2560
+        },
+        "capabilities": [
+          "completion",
+          "vision",
+          "tools",
+          "thinking"
+        ]
+      },
+      {
+        "name": "qwen3.5:4b",
+        "model": "qwen3.5:4b",
+        "modified_at": "2026-10-10T12:57:00.818738291+09:00",
+        "size": 3324173934,
+        "digest": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+        "details": {
+          "parent_model": "model.gguf",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.2B",
+          "quantization_level": "Q4_K_M",
+          "context_length": 262144,
+          "embedding_length": 2560
+        },
+        "capabilities": [
+          "completion",
+          "vision",
+          "tools",
+          "thinking"
+        ]
+      }
+    ]
+  },
+  "loaded_models_after_requests": {
+    "models": [
+      {
+        "name": "agent-lab-qwen:4b",
+        "model": "agent-lab-qwen:4b",
+        "size": 4509747117,
+        "digest": "338d8b68d59f40bcfbbeffced53f2f4039bd180f5cd7cd79be5754359b215311",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.2B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-17T05:42:14.845282+09:00",
+        "size_vram": 4509747117,
+        "context_length": 65536
+      }
+    ]
+  },
+  "model": "agent-lab-qwen:4b",
+  "client": "Linux VM loopback; Mac backend includes the reverse SSH tunnel",
+  "protocol": {
+    "prompt": "Explain how to make a scientific computation reproducible. Write six detailed paragraphs covering input data, pinned software versions, random seeds, experiment logs, validation and limitations. Use English prose and keep explaining until all six topics are covered.",
+    "stream": false,
+    "think": false,
+    "num_ctx": 65536,
+    "num_predict": 128,
+    "temperature": 0,
+    "seed": 42,
+    "warm_requests": 3,
+    "cold_definition": "Model unloaded through API; OS file caches are not cleared",
+    "workload": "Direct Ollama generation, without Hermes tools, history or Telegram"
+  },
+  "samples": [
+    {
+      "phase": "after_unload",
+      "wall_seconds": 9.809517463000006,
+      "total_seconds": 9.789185917,
+      "load_seconds": 4.851868042,
+      "prompt_tokens": 62,
+      "prompt_seconds": 0.282095,
+      "generated_tokens": 128,
+      "generation_seconds": 4.647187,
+      "tokens_per_second": 27.543544083765084,
+      "done_reason": "length",
+      "response": "To ensure that a scientific computation is reproducible, the foundation must be laid with rigorous control over input data, as the quality and provenance of inputs directly dictate the validity of any output. Researchers should never rely on ad-hoc data collection or unverified datasets; instead, they must document the exact source, acquisition method, and preprocessing steps for every file used in the analysis. This involves storing raw data in version-controlled repositories alongside metadata files that describe the schema, units, and any transformations applied before the computation begins. By treating input data as a first-class citizen of the experiment rather than an afterthought, scientists eliminate ambiguity regarding what fed"
+    },
+    {
+      "phase": "warm",
+      "wall_seconds": 4.809178836000001,
+      "total_seconds": 4.801184792,
+      "load_seconds": 0.003738375,
+      "prompt_tokens": 62,
+      "prompt_seconds": 0.257595,
+      "generated_tokens": 128,
+      "generation_seconds": 4.493545,
+      "tokens_per_second": 28.485305031995896,
+      "done_reason": "length",
+      "response": "To ensure that a scientific computation is reproducible, the foundation must be laid with rigorous control over the input data, as even minor discrepancies in source files or preprocessing steps can lead to divergent results. Researchers should adopt version-controlled repositories for all datasets, utilizing checksums such as SHA-256 to verify file integrity before and after processing. It is crucial to document not only the raw data but also any intermediate transformations, cleaning scripts, or augmentation pipelines used to prepare the inputs, ensuring that anyone attempting to replicate the study can reconstruct the exact starting point without ambiguity regarding missing values or formatting inconsistencies.\n\nEqually critical is the pinning"
+    },
+    {
+      "phase": "warm",
+      "wall_seconds": 4.9120362940000035,
+      "total_seconds": 4.901816417,
+      "load_seconds": 0.000859125,
+      "prompt_tokens": 62,
+      "prompt_seconds": 0.263052,
+      "generated_tokens": 128,
+      "generation_seconds": 4.603145,
+      "tokens_per_second": 27.807075379984774,
+      "done_reason": "length",
+      "response": "To ensure that a scientific computation can be reproduced by others, the foundation must lie in the rigorous management of input data. Reproducibility begins not with the code itself, but with the exact specifications of the datasets used to train models or simulate phenomena. Researchers must document the precise source of every dataset, including URLs, version numbers, and timestamps of extraction, because data evolves over time as new records are added or corrections are made. Furthermore, it is essential to provide the raw files alongside any pre-processing scripts that clean, normalize, or augment the data, ensuring that anyone attempting the experiment starts from an identical baseline. Without this level of transparency"
+    },
+    {
+      "phase": "warm",
+      "wall_seconds": 5.238224336000002,
+      "total_seconds": 5.2216265,
+      "load_seconds": 0.003842083,
+      "prompt_tokens": 62,
+      "prompt_seconds": 0.261565,
+      "generated_tokens": 128,
+      "generation_seconds": 4.878917,
+      "tokens_per_second": 26.23533050470012,
+      "done_reason": "length",
+      "response": "To ensure that a scientific computation can be reproduced by others, the foundation must lie in the rigorous management of input data. Reproducibility begins not with the code itself, but with the exact specifications of the datasets used to train models or simulate phenomena. Researchers must document the precise source of every dataset, including URLs, version numbers, and timestamps of extraction, because data evolves over time as new records are added or corrected. Furthermore, it is essential to provide the raw files alongside any pre-processing scripts that clean, normalize, or augment the data, ensuring that anyone attempting the experiment starts with an identical information set rather than a potentially divergent one"
+    }
+  ],
+  "warm_median_tokens_per_second": 27.807075379984774,
+  "warm_median_wall_seconds": 4.9120362940000035,
+  "warm_min_tokens_per_second": 26.23533050470012,
+  "warm_max_tokens_per_second": 28.485305031995896
+}

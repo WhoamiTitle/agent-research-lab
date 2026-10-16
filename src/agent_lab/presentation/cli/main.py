@@ -72,7 +72,7 @@ class LabCli:
         match command:
             case Command.START:
                 self._handlers.start_stand()
-                print("VM, local Ollama and the tunnel are ready.")
+                print("VM and the selected local Ollama backend are ready.")
             case Command.STOP:
                 self._handlers.stop_stand()
             case Command.STATUS:

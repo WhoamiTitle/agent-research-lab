@@ -1,0 +1,7 @@
+{
+  "memory_events": "low 0\nhigh 0\nmax 2202\noom 0\noom_kill 0\noom_group_kill 0",
+  "memory_peak_bytes": 7516196864,
+  "memory_limit_bytes": 7516192768,
+  "cpu_limit": "200000 100000",
+  "container_status": "running oom=false restarts=0 uid=10000:10000"
+}

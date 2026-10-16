@@ -1,0 +1,8 @@
+{
+  "real_repeated_start_preserved_container_start": true,
+  "docker_lab_model_create_succeeded": true,
+  "hermes_private_configuration_preflight_passed": true,
+  "hermes_ollama_connection_check_passed": true,
+  "telegram_started": false,
+  "limits": "Configuration and model endpoint checks; no new Hermes generation or Telegram dialogue in this check"
+}

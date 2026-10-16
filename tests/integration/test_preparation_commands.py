@@ -131,7 +131,7 @@ def test_sync_transfers_only_deployment_files_and_skips_python_cache(lab_shell: 
     assert "src/agent_bot/main/telegram.py" in names
     assert "infra/bot/Dockerfile" in names
     assert all(
-        name.startswith(("infra/hermes", "infra/bot", "templates", "src/agent_bot"))
+        name.startswith(("infra/hermes", "infra/bot", "infra/ollama", "templates", "src/agent_bot"))
         or name in {"pyproject.toml", "uv.lock", ".dockerignore"}
         for name in names
     )

@@ -1,30 +1,16 @@
-import json
 import time
 from contextlib import AbstractContextManager
 
 from agent_lab.application.common.exceptions import StandOperationError
 from agent_lab.application.stand.components import StandComponent
 from agent_lab.application.stand.interfaces.runtime import StandDiagnostics, StandShutdown
+from agent_lab.infrastructure.model.docker import DockerOllamaImpl
+from agent_lab.infrastructure.model.response import is_version_response
 from agent_lab.infrastructure.process import ProcessResult, ProcessRunner
 from agent_lab.infrastructure.runtime.commands import compose_arguments, guest_arguments
-from agent_lab.infrastructure.runtime.config import RuntimeConfig
+from agent_lab.infrastructure.runtime.config import OllamaBackend, RuntimeConfig
 from agent_lab.infrastructure.runtime.launchd import LaunchdServicesImpl
 from agent_lab.infrastructure.runtime.lock import LifecycleLockImpl
-
-type JsonValue = str | int | float | bool | list[JsonValue] | dict[str, JsonValue] | None
-
-
-def is_version_response(output: str) -> bool:
-    try:
-        response: JsonValue = json.loads(output)
-    except json.JSONDecodeError:
-        return False
-    return (
-        isinstance(response, dict)
-        and "version" in response
-        and isinstance(response["version"], str)
-        and bool(response["version"].strip())
-    )
 
 
 class LocalRuntimeImpl(StandShutdown, StandDiagnostics):
@@ -35,11 +21,14 @@ class LocalRuntimeImpl(StandShutdown, StandDiagnostics):
         self._runner = runner
         self._services = services
         self._lock = lock
+        self._docker_model = DockerOllamaImpl(config, runner)
 
     def exclusive(self) -> AbstractContextManager[None]:
         return self._lock.exclusive()
 
     def is_started(self, component: StandComponent) -> bool:
+        if component == StandComponent.OLLAMA and self._config.ollama_backend == OllamaBackend.DOCKER:
+            return self._docker_model.is_started()
         if component != StandComponent.VM:
             return self._services.inspect(component).loaded
         status = self._vm_status()
@@ -52,19 +41,33 @@ class LocalRuntimeImpl(StandShutdown, StandDiagnostics):
     def start(self, component: StandComponent) -> None:
         if component == StandComponent.VM:
             self._start_vm()
+        elif component == StandComponent.OLLAMA and self._config.ollama_backend == OllamaBackend.DOCKER:
+            mac_services = (StandComponent.OLLAMA, StandComponent.TUNNEL)
+            if any(self._services.inspect(service).loaded for service in mac_services):
+                raise StandOperationError("Stop the Mac backend with scripts/lab.sh stop before selecting docker.")
+            self._docker_model.start()
         else:
+            if component == StandComponent.TUNNEL and self._probe_api(in_vm=True).returncode == 0:
+                raise StandOperationError(
+                    "VM port 11434 is already occupied. Stop the Docker backend before selecting mac."
+                )
             if component == StandComponent.OLLAMA and self._probe_api(in_vm=False).returncode == 0:
                 raise StandOperationError("Port 11434 already serves HTTP outside the lab's Ollama service.")
             self._services.start(component)
 
     def wait_ready(self, component: StandComponent) -> None:
-        if component == StandComponent.VM:
+        if component == StandComponent.OLLAMA and self._config.ollama_backend == OllamaBackend.DOCKER:
+            self._docker_model.wait_ready()
+        elif component == StandComponent.VM:
             self._runner.capture(guest_arguments(self._config, "true"), timeout=self._config.status_timeout)
         else:
             self._wait_service(component)
 
     def stop(self, component: StandComponent) -> None:
-        if component == StandComponent.VM:
+        if component == StandComponent.OLLAMA and self._config.ollama_backend == OllamaBackend.DOCKER:
+            if self._vm_status() == "Running":
+                self._docker_model.stop()
+        elif component == StandComponent.VM:
             if self._vm_status() not in {"", "Stopped"}:
                 self._runner.run(("limactl", "stop", self._config.vm_name), timeout=self._config.vm_stop_timeout)
         else:
@@ -72,7 +75,10 @@ class LocalRuntimeImpl(StandShutdown, StandDiagnostics):
 
     def stop_containers(self) -> None:
         if self._vm_status() == "Running":
-            self._runner.run(compose_arguments(self._config, "down"), timeout=self._config.vm_stop_timeout)
+            arguments = (
+                ("down",) if self._config.ollama_backend == OllamaBackend.DOCKER else ("--profile", "docker", "down")
+            )
+            self._runner.run(compose_arguments(self._config, *arguments), timeout=self._config.vm_stop_timeout)
 
     def _vm_status(self) -> str:
         return self._runner.capture(
@@ -141,7 +147,12 @@ class LocalRuntimeImpl(StandShutdown, StandDiagnostics):
         )
 
     def show_model_status(self) -> None:
-        self._runner.run(("ollama", "ps"), timeout=self._config.status_timeout)
+        arguments = (
+            compose_arguments(self._config, "exec", "-T", "ollama", "ollama", "ps")
+            if self._config.ollama_backend == OllamaBackend.DOCKER
+            else ("ollama", "ps")
+        )
+        self._runner.run(arguments, timeout=self._config.status_timeout)
 
     def show_container_status(self) -> None:
         self._runner.run(compose_arguments(self._config, "ps", "--all"), timeout=self._config.status_timeout)

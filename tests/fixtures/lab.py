@@ -123,10 +123,27 @@ if name == "launchctl":
         raise SystemExit(0)
 if name == "curl" or (name == "limactl" and "curl" in arguments):
     service = "ollama" if name == "curl" else "ollama-tunnel"
-    if not (provider / service).is_file() and not (provider / "external-api").is_file():
+    docker_ready = name == "limactl" and (provider / "docker-ollama").is_file()
+    if not docker_ready and not (provider / service).is_file() and not (provider / "external-api").is_file():
         raise SystemExit(7)
     print('{"version": "fixture-version"}')
     raise SystemExit(0)
+if name == "limactl" and "SC_PHYS_PAGES" in arguments[-1]:
+    print(os.environ["LAB_TEST_VM_MEMORY"])
+    raise SystemExit(0)
+if name == "limactl" and "docker" in arguments:
+    model = provider / "docker-ollama"
+    if "inspect" in arguments:
+        if model.is_file():
+            print(("true" if model.read_text() == "running" else "false") + " agent-research-lab")
+            raise SystemExit(0)
+        print("error: no such object: agent-research-ollama", file=sys.stderr)
+        raise SystemExit(1)
+    if "up" in arguments and arguments[-1] == "ollama":
+        model.write_text("failed" if "up-ollama" in failures else "running")
+        fail("up-ollama")
+    if "down" in arguments or ("stop" in arguments and arguments[-1] == "agent-research-ollama"):
+        model.unlink(missing_ok=True)
 if name == "limactl" and "tar" in arguments:
     (provider / "deployment.tar").write_bytes(sys.stdin.buffer.read())
 if name == "limactl" and "bash" in arguments:
@@ -185,5 +202,7 @@ def build_lab_shell(directory: Path) -> LabShell:
         LAB_TEST_FAIL_CALL="0",
         LAB_TEST_FAIL_CODE=str(DEFAULT_FAILURE_EXIT_CODE),
         LAB_TEST_FAILURES="",
+        LAB_TEST_VM_MEMORY=str(10 * 1024**3),
+        LAB_OLLAMA_BACKEND="mac",
     )
     return LabShell(directory=directory, project=project, home=home, trace_file=trace_file, environment=environment)

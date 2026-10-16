@@ -1,0 +1,32 @@
+{
+  "recorded_at_utc": "2026-10-16T20:48:11.978270+00:00",
+  "recorded_at_local": "2026-10-16T13:48:11.978270-07:00",
+  "benchmark_source_sha256": "b832e6c148d8d619475e809c9def3c617e1740252df15b513027e80c33fc533c",
+  "version": "0.35.1",
+  "model_digest": "338d8b68d59f40bcfbbeffced53f2f4039bd180f5cd7cd79be5754359b215311",
+  "protocols_equal": true,
+  "input_tokens_per_request": 62,
+  "output_tokens_per_request": 128,
+  "vm_memory_gib_for_both_runs": 10,
+  "mac_generation_speed_ratio": 1.2401340761956212,
+  "docker_to_mac_warm_wall_ratio": 1.3847288735165624,
+  "samples_per_backend": {
+    "after_model_unload": 1,
+    "warm": 3
+  },
+  "checks": {
+    "make_check_ci": "passed",
+    "pytest_passed": 157,
+    "pytest_seconds": 50.0,
+    "strict_mypy_files": 134,
+    "import_contracts_kept": 7
+  },
+  "limits": [
+    "Short direct Ollama workload; no Hermes tools, conversation history or Telegram delivery",
+    "Configured context is 65536; actual input is 62 tokens, not a filled 64K context",
+    "One sequential series per backend, no randomized order or sustained-load reliability claim",
+    "OS file caches were not cleared; host already used swap",
+    "Docker cgroup max counter was 2202 at the 7 GiB limit; zero OOM and OOM kills in the successful series",
+    "Initial Docker series at 5 GiB failed on the second request and is excluded"
+  ]
+}

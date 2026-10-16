@@ -2,7 +2,8 @@ minimumLimaVersion: 2.0.0
 vmType: vz
 arch: aarch64
 cpus: 2
-memory: 3GiB
+# The Docker Ollama profile also needs space for model weights and its KV cache.
+memory: 10GiB
 disk: 24GiB
 
 images:
