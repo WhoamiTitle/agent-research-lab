@@ -1,0 +1,201 @@
+{
+  "checked_at_utc": "2026-10-17T11:41:13.169891+00:00",
+  "checked_at_local": "2026-10-17T04:41:13.169891-07:00",
+  "display_timezone": "America/Los_Angeles",
+  "scope": "P1 outsider rejection preparation: deployed configuration, source identity, and isolated handler tests; no real second-account attempt",
+  "status": "prepared_real_account_check_pending",
+  "runtime": {
+    "observed_at_utc": "2026-10-17T11:39:19.822382+00:00",
+    "observed_at_local": "2026-10-17T04:39:19.822382-07:00",
+    "containers": {
+      "agent-research-hermes": {
+        "id": "ec3abc84a0a333de586a8b6ce36cbd649548abca8174d7072a5bb9acafb0defe",
+        "status": "running",
+        "started_at_utc": "2026-10-17T11:03:39.778417377Z",
+        "restart_count": 0,
+        "oom_killed": false,
+        "health": "healthy",
+        "configured_user": "root"
+      },
+      "agent-research-telegram": {
+        "id": "81066ba6a27df89338263903ed0967fa354f49d8bda1e445bc2594dc815c7271",
+        "status": "running",
+        "started_at_utc": "2026-10-17T11:03:44.311599296Z",
+        "restart_count": 1,
+        "oom_killed": false,
+        "health": null,
+        "configured_user": "10000:10000"
+      }
+    },
+    "access_configuration": {
+      "single_numeric_owner": true,
+      "allowlist_size": 1,
+      "running_owner_matches_saved_owner": true,
+      "frontend_api_key_matches_hermes": true,
+      "private_environment": {
+        "uid": 10000,
+        "gid": 10000,
+        "mode": "0o600"
+      },
+      "hermes_allow_all_environment": {
+        "TELEGRAM_ALLOW_ALL_USERS": "false",
+        "GATEWAY_ALLOW_ALL_USERS": "false"
+      },
+      "hermes_selected_configuration": {
+        "native_telegram_enabled": false,
+        "api_enabled": true,
+        "api_host": "127.0.0.1",
+        "global_allow_all": false,
+        "unauthorized_dm_behavior": "ignore"
+      }
+    },
+    "hermes_health": {
+      "http_status": 200,
+      "response": {
+        "status": "ok",
+        "platform": "hermes-agent",
+        "version": "0.21.6"
+      }
+    },
+    "deployed_source_matches_worktree": true,
+    "source_sha256": {
+      "entities/owner.py": "384d9b71c8e114f0704ef59bff624b8eb84575e13c6c5abfacf0d5656a05391a",
+      "application/handle_message.py": "4c98148d1b555491ef0a6a41504f841f2533379313b49216732ef7ff2e21fcc2",
+      "presentation/telegram/handlers.py": "f8eff33a53dfd7185eb606ee3794fe97819c42ad50f8144bf249e861c6e6428f",
+      "main/config/loader.py": "37854ac480957d699390e4bc59f6d53924ef803c01f76575486f35d44eafea5f",
+      "main/logs.py": "de312999a2898b493cf891baa2b21fc4c7bdc78b29c976d6938fbc50b5718f09",
+      "main/telegram.py": "affabb15bbd97ff26fc36962717f4ff71760912f8058c204fdd86d6d976667e9",
+      "adapters/hermes/gateway.py": "6812b8bad50752cc2b0eb09c40e4071d543a61f302d11297ead708d5203a71a5"
+    },
+    "private_files_unchanged_during_reads": true,
+    "runtime_configuration_changed": false,
+    "service_restarted": false,
+    "real_second_account_message_sent": false,
+    "hermes_gateway_worker": {
+      "pid_in_container": 156,
+      "uid": 10000,
+      "note": "Container init is root; the live agent gateway worker is non-root",
+      "recorded_at_utc": "2026-10-17T11:41:13.169891+00:00"
+    }
+  },
+  "automated_tests": {
+    "started_at_utc": "2026-10-17T11:37:15.509846+00:00",
+    "started_at_local": "2026-10-17T04:37:15.509846-07:00",
+    "finished_at_utc": "2026-10-17T11:37:18.697544+00:00",
+    "command": "uv run --locked pytest tests/bot/test_telegram.py tests/bot/test_config_and_lifecycle.py -vv",
+    "report": "JUnit report stored privately outside the repository",
+    "exit_code": 0,
+    "wall_seconds": 3.187698,
+    "tests": 13,
+    "passed": 13,
+    "cases": [
+      {
+        "class": "tests.bot.test_telegram",
+        "name": "test_start_replies_without_calling_model",
+        "seconds": 0.263,
+        "result": "passed"
+      },
+      {
+        "class": "tests.bot.test_telegram",
+        "name": "test_outsider_and_group_do_not_reach_hermes_or_receive_reply[43-private]",
+        "seconds": 0.012,
+        "result": "passed"
+      },
+      {
+        "class": "tests.bot.test_telegram",
+        "name": "test_outsider_and_group_do_not_reach_hermes_or_receive_reply[42-group]",
+        "seconds": 0.012,
+        "result": "passed"
+      },
+      {
+        "class": "tests.bot.test_telegram",
+        "name": "test_prompt_is_forwarded_and_long_unicode_reply_is_delivered",
+        "seconds": 0.265,
+        "result": "passed"
+      },
+      {
+        "class": "tests.bot.test_telegram",
+        "name": "test_status_does_not_run_model",
+        "seconds": 0.272,
+        "result": "passed"
+      },
+      {
+        "class": "tests.bot.test_config_and_lifecycle",
+        "name": "test_configuration_rejects_broad_or_invalid_owner[]",
+        "seconds": 0.001,
+        "result": "passed"
+      },
+      {
+        "class": "tests.bot.test_config_and_lifecycle",
+        "name": "test_configuration_rejects_broad_or_invalid_owner[42,43]",
+        "seconds": 0.001,
+        "result": "passed"
+      },
+      {
+        "class": "tests.bot.test_config_and_lifecycle",
+        "name": "test_configuration_rejects_broad_or_invalid_owner[*]",
+        "seconds": 0.001,
+        "result": "passed"
+      },
+      {
+        "class": "tests.bot.test_config_and_lifecycle",
+        "name": "test_configuration_rejects_broad_or_invalid_owner[0]",
+        "seconds": 0.001,
+        "result": "passed"
+      },
+      {
+        "class": "tests.bot.test_config_and_lifecycle",
+        "name": "test_configuration_rejects_broad_or_invalid_owner[@fixture]",
+        "seconds": 0.0,
+        "result": "passed"
+      },
+      {
+        "class": "tests.bot.test_config_and_lifecycle",
+        "name": "test_second_poller_cannot_own_same_directory",
+        "seconds": 0.011,
+        "result": "passed"
+      },
+      {
+        "class": "tests.bot.test_config_and_lifecycle",
+        "name": "test_logs_use_los_angeles_offset_and_hide_dependency_messages[1--08:00]",
+        "seconds": 0.001,
+        "result": "passed"
+      },
+      {
+        "class": "tests.bot.test_config_and_lifecycle",
+        "name": "test_logs_use_los_angeles_offset_and_hide_dependency_messages[10--07:00]",
+        "seconds": 0.0,
+        "result": "passed"
+      }
+    ]
+  },
+  "source_review": {
+    "authorization_before_dispatch": true,
+    "rule": "Only private messages whose sender ID equals the single configured owner ID are allowed",
+    "rejection": "Return no reply before readiness checks or agent generation, then log update_rejected",
+    "pairing_or_public_registration": "Not implemented",
+    "log_privacy": "Stable event names; raw sender IDs and message bodies are not logged"
+  },
+  "real_account_check": {
+    "status": "not_performed",
+    "reason": "User currently has no second Telegram account available for the test",
+    "real_second_account_message_sent": false,
+    "observed_rejection_log": null,
+    "screenshot": null,
+    "owner_followup_after_attempt": "not_performed"
+  },
+  "next_run_protocol": [
+    "Record a fresh time window and verify that the single-owner rule and gateway are unchanged",
+    "Send /start and a unique plain-text control question from a real second account without adding it to the allowlist",
+    "Capture a screenshot of the bot username, sent question, and time with personal information removed",
+    "Correlate update_rejected with the attempt; check for no Hermes admission, no new Telegram run, and no model generation in the controlled window",
+    "Close the rejection observation window, then send a separate control question as the owner and confirm a delivered answer"
+  ],
+  "limits": [
+    "Tests use real aiogram/Dishka handlers, a local HTTP stub for Telegram API, and AgentMock; they do not contact real Telegram or Ollama",
+    "Passing handler tests and a strict deployed allowlist do not replace a real second-account attempt or its screenshot",
+    "Anonymous update_rejected events without a correlated second-account attempt are not accepted as proof of this requirement",
+    "Configuration and deployed sources were read only; the owner list, credentials, code, and running services were not changed",
+    "P1 outsider rejection remains unverified until a real attempt and evidence are collected"
+  ]
+}

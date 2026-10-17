@@ -1,0 +1,5 @@
+2026-10-17T10:46:26.664780597Z Syncing bundled skills into ~/.hermes/skills/ ... [agent-research-hermes]
+2026-10-17T10:46:26.737405847Z Done: 0 new, 0 updated, 58 unchanged. 58 total bundled. [agent-research-hermes]
+2026-10-17T10:46:29.128492848Z │           ☤ Hermes Gateway Starting...                 │ [agent-research-hermes]
+2026-10-17T10:46:28.437415056Z → gateway is now running under s6 supervision (auto-restart on crash, [agent-research-hermes]
+2026-10-17T10:46:35.867739143Z {"timestamp": "2026-10-17T03:46:35.867153-07:00", "level": "INFO", "logger": "agent_bot.main.telegram", "event": "bot_polling_started"} [agent-research-telegram]

@@ -1,0 +1,341 @@
+{
+  "checked_at_utc": "2026-10-17T11:27:53.941185+00:00",
+  "checked_at_local": "2026-10-17T04:27:53.941185-07:00",
+  "display_timezone": "America/Los_Angeles",
+  "scope": "P1 stage 3: autonomous execution by the permanent Hermes gateway with the user-confirmed closed Telegram client; local result delivery",
+  "backend": "mac",
+  "telegram_client": {
+    "closed_confirmed_by_user": true,
+    "confirmation": "Telegram закрыт",
+    "confirmation_recorded_at_utc": "2026-10-17T11:16:20.554520+00:00",
+    "verification_method": "User confirmation; client process and other devices are not remotely observed"
+  },
+  "schedule": {
+    "created_at_utc": "2026-10-17T11:22:19.398284+00:00",
+    "created_at_local": "2026-10-17T04:22:19.398284-07:00",
+    "scheduled_for_utc": "2026-10-17T11:24:19+00:00",
+    "scheduled_for_local": "2026-10-17T04:24:19-07:00",
+    "cli_create_exit_code": 0,
+    "cli_create_stdout": "Created job: 070c30b7d3cf\n  Name: p1-cron-autonomy-a3b7cf5378d1-retry\n  Schedule: once at 2026-10-17 11:24\n  Workdir: /opt/data/workspace/p1-cron/a3b7cf5378d1-retry\n  Next run: 2026-10-17T11:24:19+00:00\n",
+    "job_definition": {
+      "id": "070c30b7d3cf",
+      "name": "p1-cron-autonomy-a3b7cf5378d1-retry",
+      "prompt": "Это одноразовая техническая проверка автономного cron для P1. Через terminal выполни только следующие обычные команды в рабочем каталоге /opt/data/workspace/p1-cron/a3b7cf5378d1-retry:\nset -C && umask 077 && printf '%s\\n' 'P1_CRON_OK_A3B7CF5378D1_RETRY' > result.txt && date -u '+%Y-%m-%dT%H:%M:%S+00:00' >> result.txt && id -u >> result.txt && pwd >> result.txt && cat result.txt\nКоманды создают только новый result.txt текущей проверки: метка, фактическое время UTC, UID и рабочий каталог. Не запускай python, bash -c, sh -c или другой интерпретатор. Не читай .env, токены, ключи и историю других диалогов; не изменяй память, настройки, расписания или другие файлы; не отправляй сообщения. Не вызывай другие инструменты. После успешного terminal ответь только строкой P1_CRON_OK_A3B7CF5378D1_RETRY. Если команда заблокирована или завершилась ошибкой, сообщи ошибку; ожидаемый результат не подставляй.",
+      "skills": [],
+      "skill": null,
+      "model": "agent-lab-qwen:4b",
+      "provider": "custom",
+      "base_url": null,
+      "script": null,
+      "no_agent": false,
+      "monitor_script": null,
+      "monitor_url": null,
+      "monitor_state": null,
+      "context_from": null,
+      "schedule": {
+        "kind": "once",
+        "run_at": "2026-10-17T11:24:19+00:00",
+        "display": "once at 2026-10-17 11:24"
+      },
+      "schedule_display": "once at 2026-10-17 11:24",
+      "repeat": {
+        "times": 1,
+        "completed": 0
+      },
+      "enabled": true,
+      "state": "scheduled",
+      "paused_at": null,
+      "paused_reason": null,
+      "created_at": "2026-10-17T11:22:21.170213+00:00",
+      "next_run_at": "2026-10-17T11:24:19+00:00",
+      "last_run_at": null,
+      "last_status": null,
+      "last_error": null,
+      "last_delivery_error": null,
+      "last_delivery_unverified": null,
+      "last_failure": null,
+      "failure_streak": 0,
+      "deliver": "local",
+      "origin": null,
+      "enabled_toolsets": null,
+      "workdir": "/opt/data/workspace/p1-cron/a3b7cf5378d1-retry",
+      "reasoning_effort": "none",
+      "failure_deliver": "local"
+    }
+  },
+  "before_due": {
+    "observed_at_utc": "2026-10-17T11:23:24.226908+00:00",
+    "observed_at_local": "2026-10-17T04:23:24.226908-07:00",
+    "result_file_exists": false,
+    "executions": [],
+    "usage_audit": []
+  },
+  "scheduler_status_before_creation": "\n  Scheduler host: the host gateway (PID 156) serving profiles default\n✓ Gateway is running — cron jobs will fire automatically\n  PID: 156\n  Ticker heartbeat: 30s ago\n\n  No active jobs\n\n",
+  "execution": {
+    "id": "d4d7844a51924350997986d22a99a0c9",
+    "job_id": "070c30b7d3cf",
+    "source": "builtin",
+    "process_id": "a8870eaa7a6e47e1b7766eacf3d814be",
+    "pid": 156,
+    "process_started_at": 715,
+    "status": "completed",
+    "handoff_pending": 0,
+    "handoff_started_at": null,
+    "claimed_at": "2026-10-17T11:24:49.520060+00:00",
+    "started_at": "2026-10-17T11:24:49.537317+00:00",
+    "finished_at": "2026-10-17T11:25:46.394994+00:00",
+    "error": null,
+    "delivery_outcome": "suppressed",
+    "scheduled_instant": "2026-10-17T11:24:19+00:00",
+    "progress_at": null
+  },
+  "execution_started_at_local": "2026-10-17T04:24:49.537317-07:00",
+  "execution_finished_at_local": "2026-10-17T04:25:46.394994-07:00",
+  "timing": {
+    "scheduled_to_claim_seconds": 30.52006,
+    "scheduled_to_start_seconds": 30.537317,
+    "execution_seconds": 56.857677
+  },
+  "model_session": {
+    "model": "agent-lab-qwen:4b",
+    "started_at_utc": "2026-10-17T11:24:49.589390+00:00",
+    "ended_at_utc": "2026-10-17T11:25:46.256035+00:00",
+    "end_reason": "cron_complete"
+  },
+  "usage_audit": [
+    {
+      "ts": "2026-10-17T11:25:46.248Z",
+      "job_id": "070c30b7d3cf",
+      "fire_id": "60acd012da6c43a4b6f410a860f40563",
+      "prompt_tokens": 32159,
+      "completion_tokens": 159,
+      "total_tokens": 32318,
+      "response_silent": false,
+      "deliver_target": "local",
+      "model": "agent-lab-qwen:4b",
+      "duration_ms": 56677,
+      "error": null
+    }
+  ],
+  "tool_trace": [
+    {
+      "event": "tool_call",
+      "tool": "terminal",
+      "arguments": {
+        "command": "cd /opt/data/workspace/p1-cron/a3b7cf5378d1-retry && set -C && umask 077 && printf '%s\\n' 'P1_CRON_OK_A3B7CF5378D1_RETRY' > result.txt && date -u '+%Y-%m-%dT%H:%M:%S+00:00' >> result.txt && id -u >> result.txt && pwd >> result.txt && cat result.txt",
+        "timeout": 60
+      },
+      "timestamp_utc": "2026-10-17T11:25:44.333088+00:00"
+    },
+    {
+      "event": "tool_result",
+      "tool": "terminal",
+      "result": {
+        "output": "P1_CRON_OK_A3B7CF5378D1_RETRY\n2026-10-17T11:25:44+00:00\n10000\n/opt/data/workspace/p1-cron/a3b7cf5378d1-retry",
+        "exit_code": 0,
+        "error": null
+      },
+      "timestamp_utc": "2026-10-17T11:25:44.409294+00:00"
+    }
+  ],
+  "final_output": "P1_CRON_OK_A3B7CF5378D1_RETRY",
+  "result_file": {
+    "path": "/srv/agent-lab/data/workspace/p1-cron/a3b7cf5378d1-retry/result.txt",
+    "uid": 10000,
+    "gid": 10000,
+    "mode": "0o600",
+    "modified_at_utc": "2026-10-17T11:25:44.387800+00:00",
+    "raw_contents": "P1_CRON_OK_A3B7CF5378D1_RETRY\n2026-10-17T11:25:44+00:00\n10000\n/opt/data/workspace/p1-cron/a3b7cf5378d1-retry\n",
+    "contents": {
+      "marker": "P1_CRON_OK_A3B7CF5378D1_RETRY",
+      "created_at_utc": "2026-10-17T11:25:44+00:00",
+      "uid": 10000,
+      "cwd": "/opt/data/workspace/p1-cron/a3b7cf5378d1-retry",
+      "created_at_local": "2026-10-17T04:25:44-07:00"
+    },
+    "container_path": "/opt/data/workspace/p1-cron/a3b7cf5378d1-retry/result.txt",
+    "sha256": "ba8c89a05e5d0d4ac3268cd82e6c0a90ddc582ba392f684099bc3a98acb83bb4"
+  },
+  "job_after_execution": {
+    "id": "070c30b7d3cf",
+    "name": "p1-cron-autonomy-a3b7cf5378d1-retry",
+    "prompt": "Это одноразовая техническая проверка автономного cron для P1. Через terminal выполни только следующие обычные команды в рабочем каталоге /opt/data/workspace/p1-cron/a3b7cf5378d1-retry:\nset -C && umask 077 && printf '%s\\n' 'P1_CRON_OK_A3B7CF5378D1_RETRY' > result.txt && date -u '+%Y-%m-%dT%H:%M:%S+00:00' >> result.txt && id -u >> result.txt && pwd >> result.txt && cat result.txt\nКоманды создают только новый result.txt текущей проверки: метка, фактическое время UTC, UID и рабочий каталог. Не запускай python, bash -c, sh -c или другой интерпретатор. Не читай .env, токены, ключи и историю других диалогов; не изменяй память, настройки, расписания или другие файлы; не отправляй сообщения. Не вызывай другие инструменты. После успешного terminal ответь только строкой P1_CRON_OK_A3B7CF5378D1_RETRY. Если команда заблокирована или завершилась ошибкой, сообщи ошибку; ожидаемый результат не подставляй.",
+    "skills": [],
+    "skill": null,
+    "model": "agent-lab-qwen:4b",
+    "provider": "custom",
+    "base_url": null,
+    "script": null,
+    "no_agent": false,
+    "monitor_script": null,
+    "monitor_url": null,
+    "monitor_state": null,
+    "context_from": null,
+    "schedule": {
+      "kind": "once",
+      "run_at": "2026-10-17T11:24:19+00:00",
+      "display": "once at 2026-10-17 11:24"
+    },
+    "schedule_display": "once at 2026-10-17 11:24",
+    "repeat": {
+      "times": 1,
+      "completed": 1
+    },
+    "enabled": false,
+    "state": "completed",
+    "paused_at": null,
+    "paused_reason": null,
+    "created_at": "2026-10-17T11:22:21.170213+00:00",
+    "next_run_at": null,
+    "last_run_at": "2026-10-17T11:25:46.394052+00:00",
+    "last_status": "ok",
+    "last_error": null,
+    "last_delivery_error": null,
+    "last_delivery_unverified": null,
+    "last_failure": null,
+    "failure_streak": 0,
+    "deliver": "local",
+    "origin": null,
+    "enabled_toolsets": null,
+    "workdir": "/opt/data/workspace/p1-cron/a3b7cf5378d1-retry",
+    "reasoning_effort": "none",
+    "failure_deliver": "local",
+    "run_claim": null,
+    "fire_claim": null
+  },
+  "local_agent_report": {
+    "source_path": "/srv/agent-lab/data/cron/output/070c30b7d3cf/2026-10-17_11-25-46.md",
+    "export_path": "evidence/p1/autonomous-cron-agent-output.md",
+    "sha256": "c88b89dd04e04f802f4370041566bf8d21cc5a236c8b51b9042e0dda7c3219a4"
+  },
+  "ollama": {
+    "events": [
+      {
+        "source_line": "[GIN] 2026/10/17 - 20:25:44 | 200 |  54.68435275s |       127.0.0.1 | POST     \"/v1/chat/completions\"",
+        "source_timestamp": "2026/10/17 20:25:44",
+        "source_timezone": "Asia/Yakutsk",
+        "timestamp_utc": "2026-10-17T11:25:44+00:00",
+        "timestamp_local": "2026-10-17T04:25:44-07:00",
+        "http_status": 200,
+        "duration": "54.68435275s",
+        "method": "POST",
+        "path": "/v1/chat/completions"
+      },
+      {
+        "source_line": "[GIN] 2026/10/17 - 20:25:46 | 200 |  1.806326917s |       127.0.0.1 | POST     \"/v1/chat/completions\"",
+        "source_timestamp": "2026/10/17 20:25:46",
+        "source_timezone": "Asia/Yakutsk",
+        "timestamp_utc": "2026-10-17T11:25:46+00:00",
+        "timestamp_local": "2026-10-17T04:25:46-07:00",
+        "http_status": 200,
+        "duration": "1.806326917s",
+        "method": "POST",
+        "path": "/v1/chat/completions"
+      }
+    ],
+    "correlation_scope": "Two successful model calls in the same window as this single cron execution; job pin, session model, usage audit, and actual tool output also verified"
+  },
+  "containers_before": {
+    "agent-research-hermes": {
+      "id": "ec3abc84a0a333de586a8b6ce36cbd649548abca8174d7072a5bb9acafb0defe",
+      "started_at_utc": "2026-10-17T11:03:39.778417377Z",
+      "restart_count": 0,
+      "status": "running"
+    },
+    "agent-research-telegram": {
+      "id": "81066ba6a27df89338263903ed0967fa354f49d8bda1e445bc2594dc815c7271",
+      "started_at_utc": "2026-10-17T11:03:44.311599296Z",
+      "restart_count": 1,
+      "status": "running"
+    }
+  },
+  "boot_id_before": "9ed03e88-7439-4f82-a977-5b91bf2e1803",
+  "cleanup": {
+    "checked_at_utc": "2026-10-17T11:27:53.941185+00:00",
+    "checked_at_local": "2026-10-17T04:27:53.941185-07:00",
+    "removed_control_jobs": [
+      {
+        "job_id": "2f79fdd4b14d",
+        "exit_code": 0,
+        "stdout": "Removed job: p1-cron-autonomy-a3b7cf5378d1 (2f79fdd4b14d)\n",
+        "stderr": ""
+      },
+      {
+        "job_id": "070c30b7d3cf",
+        "exit_code": 0,
+        "stdout": "Removed job: p1-cron-autonomy-a3b7cf5378d1-retry (070c30b7d3cf)\n",
+        "stderr": ""
+      }
+    ],
+    "remaining_job_ids": [],
+    "unrelated_jobs_preserved": true,
+    "active_jobs_after": [],
+    "control_result_preserved": true,
+    "cron_histories_after_cleanup": [
+      {
+        "job_id": "2f79fdd4b14d",
+        "exit_code": 0,
+        "stdout": "f47e3538b31e43a7a4064d38cc90febf  failed     job=2f79fdd4b14d  source=builtin  2026-10-17T11:18:49.509633+00:00\n    Cron agent reported failure.\n",
+        "stderr": ""
+      },
+      {
+        "job_id": "070c30b7d3cf",
+        "exit_code": 0,
+        "stdout": "d4d7844a51924350997986d22a99a0c9  completed  job=070c30b7d3cf  source=builtin  2026-10-17T11:24:49.520060+00:00\n",
+        "stderr": ""
+      }
+    ],
+    "cron_status_after_cleanup": "\n  Scheduler host: the host gateway (PID 156) serving profiles default\n✓ Gateway is running — cron jobs will fire automatically\n  PID: 156\n  Ticker heartbeat: 4s ago\n\n  No active jobs\n\n",
+    "containers_after": {
+      "agent-research-hermes": {
+        "id": "ec3abc84a0a333de586a8b6ce36cbd649548abca8174d7072a5bb9acafb0defe",
+        "started_at_utc": "2026-10-17T11:03:39.778417377Z",
+        "restart_count": 0,
+        "status": "running",
+        "oom_killed": false,
+        "health": "healthy"
+      },
+      "agent-research-telegram": {
+        "id": "81066ba6a27df89338263903ed0967fa354f49d8bda1e445bc2594dc815c7271",
+        "started_at_utc": "2026-10-17T11:03:44.311599296Z",
+        "restart_count": 1,
+        "status": "running",
+        "oom_killed": false,
+        "health": null
+      }
+    },
+    "boot_id": "9ed03e88-7439-4f82-a977-5b91bf2e1803"
+  },
+  "verification": {
+    "manual_tick_or_run_used": false,
+    "temporary_ticker_used": false,
+    "permanent_gateway_pid": 156,
+    "builtin_scheduler_source": true,
+    "one_successful_execution": true,
+    "result_file_absent_before_schedule": true,
+    "result_file_created_by_agent_terminal": true,
+    "non_root_uid": 10000,
+    "expected_marker_confirmed": true,
+    "expected_directory_confirmed": true,
+    "container_ids_and_start_times_preserved": true,
+    "boot_id_preserved": true,
+    "approvals_configuration_changed": false,
+    "control_schedules_removed": true,
+    "unrelated_jobs_preserved": true
+  },
+  "unsuccessful_first_attempt": {
+    "job_id": "2f79fdd4b14d",
+    "evidence": "evidence/p1/cron-blocked-attempt.json",
+    "result": "failed: terminal blocked python -c; no result file created",
+    "resolution": "A new once-only job used basic shell commands; no approval setting changed"
+  },
+  "limits": [
+    "Telegram client closure is confirmed by the user; the Mac client, browser tabs, other devices, and continued closure are not remotely monitored",
+    "The bot and permanent gateway remained running; closing the user client is distinct from stopping the gateway",
+    "This is one successful scheduled execution after one unsuccessful attempt, not P2 and not a reliability or performance series",
+    "Delivery target is local: the control file and native Hermes report are retained, and Telegram notification delivery is not tested",
+    "Timing includes scheduler dispatch delay and local model processing; usage tokens are cumulative across the agent steps",
+    "The first attempt was automatically dispatched but failed its terminal action; it is not accepted as a successful autonomous completion",
+    "A real outsider-account attempt and report screenshots remain separate P1 work"
+  ]
+}

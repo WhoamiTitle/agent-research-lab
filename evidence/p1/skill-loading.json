@@ -1,0 +1,159 @@
+{
+  "checked_at_utc": "2026-10-17T10:53:41.603960+00:00",
+  "checked_at_local": "2026-10-17T03:53:41.603960-07:00",
+  "display_timezone": "America/Los_Angeles",
+  "scope": "P1 stage 1: gateway startup, skill discovery, explicit skill loading and read-only tool execution",
+  "containers": {
+    "agent-research-hermes": {
+      "status": "running",
+      "started_at_utc": "2026-10-17T10:46:26.113323472Z",
+      "restart_count": 0,
+      "image": "nousresearch/hermes-agent:v0.21.6@sha256:55e192fba0cd4fde61142abbff5adeacff40efdb482ccd0ff877924bd274f909",
+      "restart_policy": "unless-stopped"
+    },
+    "agent-research-telegram": {
+      "status": "running",
+      "started_at_utc": "2026-10-17T10:46:31.64726185Z",
+      "restart_count": 0,
+      "image": "agent-research-telegram:local",
+      "restart_policy": "unless-stopped"
+    }
+  },
+  "gateway_health": {
+    "http_status": 200,
+    "response": {
+      "status": "ok",
+      "platform": "hermes-agent",
+      "version": "0.21.6"
+    }
+  },
+  "startup_observations": [
+    {
+      "service": "agent-research-hermes",
+      "source": "docker logs --timestamps",
+      "line": "2026-10-17T10:46:26.664780597Z Syncing bundled skills into ~/.hermes/skills/ ..."
+    },
+    {
+      "service": "agent-research-hermes",
+      "source": "docker logs --timestamps",
+      "line": "2026-10-17T10:46:26.737405847Z Done: 0 new, 0 updated, 58 unchanged. 58 total bundled."
+    },
+    {
+      "service": "agent-research-hermes",
+      "source": "docker logs --timestamps",
+      "line": "2026-10-17T10:46:29.128492848Z │           ☤ Hermes Gateway Starting...                 │"
+    },
+    {
+      "service": "agent-research-hermes",
+      "source": "docker logs --timestamps",
+      "line": "2026-10-17T10:46:28.437415056Z → gateway is now running under s6 supervision (auto-restart on crash,"
+    },
+    {
+      "service": "agent-research-telegram",
+      "source": "docker logs --timestamps",
+      "line": "2026-10-17T10:46:35.867739143Z {\"timestamp\": \"2026-10-17T03:46:35.867153-07:00\", \"level\": \"INFO\", \"logger\": \"agent_bot.main.telegram\", \"event\": \"bot_polling_started\"}"
+    }
+  ],
+  "skill_discovery": {
+    "skills_list_count": 54,
+    "snapshot_entries": 59,
+    "snapshot_updated_at_utc": "2026-10-17T10:49:38.708267+00:00",
+    "lab_readiness_in_snapshot": true,
+    "fully_loaded_skill": "lab-readiness",
+    "loaded_content_sha256": "1cc446a441f3acef06e5e443e9000d74d06c6ee7b78cdd784a1fa6bd9c54e6e5",
+    "load_mode": "Explicit request by skill name; the other skill bodies are loaded on demand"
+  },
+  "controlled_run": {
+    "input": "Проверь готовность лабораторного стенда. Это только техническая проверка P1, не P2. Вызови skills_list, затем обязательно skill_view с name=lab-readiness. Прочитай полученный навык и выполни только его диагностические команды через terminal. Не изменяй файлы, память или настройки, не создавай задачи cron, не читай .env, токены, ключи и историю других диалогов. В конце кратко приведи фактические UID, рабочий каталог, версию Python и результат WORKSPACE_OK. Если инструменты недоступны, сообщи об этом; не подставляй ожидаемый результат.",
+    "status": "completed",
+    "created_at_utc": "2026-10-17T10:49:38.316687+00:00",
+    "created_at_local": "2026-10-17T03:49:38.316687-07:00",
+    "completed_at_utc": "2026-10-17T10:50:48.246375+00:00",
+    "completed_at_local": "2026-10-17T03:50:48.246375-07:00",
+    "wall_seconds": 69.929688,
+    "runtime": {
+      "provider": "custom",
+      "model": "agent-lab-qwen:4b",
+      "route_source": "global"
+    },
+    "usage": {
+      "input_tokens": 67743,
+      "output_tokens": 192,
+      "total_tokens": 67935,
+      "cache_read_tokens": 50004,
+      "cache_write_tokens": 0
+    },
+    "tool_trace": [
+      {
+        "event": "tool_call",
+        "tool": "skills_list",
+        "arguments": {}
+      },
+      {
+        "event": "tool_result",
+        "tool": "skills_list",
+        "result": {
+          "success": true,
+          "count": 54,
+          "lab_readiness_present": true
+        }
+      },
+      {
+        "event": "tool_call",
+        "tool": "skill_view",
+        "arguments": {
+          "name": "lab-readiness"
+        }
+      },
+      {
+        "event": "tool_result",
+        "tool": "skill_view",
+        "result": {
+          "success": true,
+          "name": "lab-readiness",
+          "path": "lab-readiness/SKILL.md",
+          "content_sha256": "1cc446a441f3acef06e5e443e9000d74d06c6ee7b78cdd784a1fa6bd9c54e6e5"
+        }
+      },
+      {
+        "event": "tool_call",
+        "tool": "terminal",
+        "arguments": {
+          "command": "id -u && pwd && python --version && test -d /opt/data && test -w /opt/data/workspace && echo WORKSPACE_OK"
+        }
+      },
+      {
+        "event": "tool_result",
+        "tool": "terminal",
+        "result": {
+          "exit_code": 0,
+          "output": "10000\n/opt/data/workspace\nPython 3.13.5\nWORKSPACE_OK",
+          "error": null
+        }
+      }
+    ],
+    "final_output": "UID: 10000 (не root)  \nРабочий каталог: /opt/data/workspace  \nВерсия Python: 3.13.5  \nВывод WORKSPACE_OK подтверждает доступность и записываемость /opt/data/workspace  \n\nОграничения: нет .env, токенов, cron-задач; проверка ограничена текущей сессией без записи в память или настройки стенда."
+  },
+  "verified": {
+    "non_root_worker_uid": 10000,
+    "working_directory": "/opt/data/workspace",
+    "python_version": "3.13.5",
+    "workspace_writable": true
+  },
+  "observed_issue": {
+    "endpoint": "GET /v1/skills",
+    "http_status": 500,
+    "source": "gateway/platforms/api_server.py:2933 in the pinned Hermes image",
+    "error": "TypeError: _find_all_skills() got an unexpected keyword argument 'include_editorial'",
+    "workaround": "Use the built-in skills_list and skill_view tools; no vendor code or image version changed"
+  },
+  "limits": [
+    "Startup synchronization of 58 bundled skill files alone does not prove skill execution",
+    "Snapshot entries and the loadable tool catalog are distinct inventories; only lab-readiness was fully loaded in this run",
+    "Controlled input addressed the skill explicitly; implicit selection from a general question was not tested",
+    "The model final wording about absent .env/tokens is inaccurate: those private files exist and were not read by the diagnostic; acceptance uses actual tool output",
+    "Input token totals are cumulative across the multi-step run, not the size of a single context window",
+    "The control request used Hermes API; no new Telegram dialogue or screenshot is claimed by this run",
+    "VM reboot recovery, autonomous cron, and a real outsider-account check remain for later stages"
+  ]
+}

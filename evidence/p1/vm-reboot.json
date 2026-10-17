@@ -1,0 +1,487 @@
+{
+  "checked_at_utc": "2026-10-17T11:08:21.236872+00:00",
+  "checked_at_local": "2026-10-17T04:08:21.236872-07:00",
+  "display_timezone": "America/Los_Angeles",
+  "scope": "P1 stage 2: actual Linux guest reboot, automatic service recovery, and real Telegram replies through Hermes and local Ollama",
+  "backend": "mac",
+  "reboot_request": {
+    "command": "limactl shell agent-research -- sudo systemctl reboot",
+    "requested_at_utc": "2026-10-17T11:03:29.483501+00:00",
+    "requested_at_local": "2026-10-17T04:03:29.483501-07:00",
+    "manual_service_start_after_reboot": false,
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "",
+    "command_wall_seconds": 0.0502428750000945
+  },
+  "before": {
+    "observed_at_utc": "2026-10-17T11:03:19.803126+00:00",
+    "observed_at_local": "2026-10-17T04:03:19.803126-07:00",
+    "boot_id": "ecce175f-7adf-4cb6-a15b-17d79eea956b",
+    "uptime_seconds": 1053.91,
+    "docker_enabled": "enabled",
+    "docker_active": "active",
+    "containers": {
+      "agent-research-hermes": {
+        "id": "ec3abc84a0a333de586a8b6ce36cbd649548abca8174d7072a5bb9acafb0defe",
+        "created_at_utc": "2026-10-17T10:46:26.073200389Z",
+        "started_at_utc": "2026-10-17T10:46:26.113323472Z",
+        "status": "running",
+        "health": "healthy",
+        "pid": 4594,
+        "restart_count": 0,
+        "oom_killed": false,
+        "restart_policy": "unless-stopped",
+        "image": "nousresearch/hermes-agent:v0.21.6@sha256:55e192fba0cd4fde61142abbff5adeacff40efdb482ccd0ff877924bd274f909"
+      },
+      "agent-research-telegram": {
+        "id": "81066ba6a27df89338263903ed0967fa354f49d8bda1e445bc2594dc815c7271",
+        "created_at_utc": "2026-10-17T10:46:26.09198543Z",
+        "started_at_utc": "2026-10-17T10:46:31.64726185Z",
+        "status": "running",
+        "health": null,
+        "pid": 4919,
+        "restart_count": 0,
+        "oom_killed": false,
+        "restart_policy": "unless-stopped",
+        "image": "agent-research-telegram:local"
+      }
+    },
+    "booted_at_utc_approx": "2026-10-17T10:45:45.893126+00:00",
+    "hermes_health": {
+      "http_status": 200,
+      "response": {
+        "status": "ok",
+        "platform": "hermes-agent",
+        "version": "0.21.6"
+      }
+    },
+    "ollama_version": {
+      "http_status": 200,
+      "response": {
+        "version": "0.35.1"
+      }
+    },
+    "ollama_tags": {
+      "http_status": 200,
+      "response": [
+        {
+          "name": "agent-lab-qwen:4b",
+          "digest": "338d8b68d59f40bcfbbeffced53f2f4039bd180f5cd7cd79be5754359b215311"
+        },
+        {
+          "name": "qwen3.5:4b",
+          "digest": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04"
+        }
+      ]
+    },
+    "mac_launchd": {
+      "ollama": {
+        "loaded": true,
+        "pid": 65172,
+        "runs": 1
+      },
+      "ollama-tunnel": {
+        "loaded": true,
+        "pid": 65186,
+        "runs": 1
+      }
+    }
+  },
+  "first_after": {
+    "observed_at_utc": "2026-10-17T11:03:47.522063+00:00",
+    "observed_at_local": "2026-10-17T04:03:47.522063-07:00",
+    "boot_id": "9ed03e88-7439-4f82-a977-5b91bf2e1803",
+    "uptime_seconds": 13.33,
+    "docker_enabled": "enabled",
+    "docker_active": "active",
+    "containers": {
+      "agent-research-hermes": {
+        "id": "ec3abc84a0a333de586a8b6ce36cbd649548abca8174d7072a5bb9acafb0defe",
+        "created_at_utc": "2026-10-17T10:46:26.073200389Z",
+        "started_at_utc": "2026-10-17T11:03:39.778417377Z",
+        "status": "running",
+        "health": "starting",
+        "pid": 1164,
+        "restart_count": 0,
+        "oom_killed": false,
+        "restart_policy": "unless-stopped",
+        "image": "nousresearch/hermes-agent:v0.21.6@sha256:55e192fba0cd4fde61142abbff5adeacff40efdb482ccd0ff877924bd274f909"
+      },
+      "agent-research-telegram": {
+        "id": "81066ba6a27df89338263903ed0967fa354f49d8bda1e445bc2594dc815c7271",
+        "created_at_utc": "2026-10-17T10:46:26.09198543Z",
+        "started_at_utc": "2026-10-17T11:03:44.311599296Z",
+        "status": "running",
+        "health": null,
+        "pid": 1983,
+        "restart_count": 1,
+        "oom_killed": false,
+        "restart_policy": "unless-stopped",
+        "image": "agent-research-telegram:local"
+      }
+    },
+    "booted_at_utc_approx": "2026-10-17T11:03:34.192063+00:00",
+    "hermes_health": {
+      "http_status": 200,
+      "response": {
+        "status": "ok",
+        "platform": "hermes-agent",
+        "version": "0.21.6"
+      }
+    },
+    "ollama_version": {
+      "http_status": 200,
+      "response": {
+        "version": "0.35.1"
+      }
+    },
+    "ollama_tags": {
+      "http_status": 200,
+      "response": [
+        {
+          "name": "agent-lab-qwen:4b",
+          "digest": "338d8b68d59f40bcfbbeffced53f2f4039bd180f5cd7cd79be5754359b215311"
+        },
+        {
+          "name": "qwen3.5:4b",
+          "digest": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04"
+        }
+      ]
+    },
+    "mac_launchd": {
+      "ollama": {
+        "loaded": true,
+        "pid": 65172,
+        "runs": 1
+      },
+      "ollama-tunnel": {
+        "loaded": true,
+        "pid": 67216,
+        "runs": 3
+      }
+    }
+  },
+  "after": {
+    "observed_at_utc": "2026-10-17T11:08:20.996716+00:00",
+    "observed_at_local": "2026-10-17T04:08:20.996716-07:00",
+    "boot_id": "9ed03e88-7439-4f82-a977-5b91bf2e1803",
+    "uptime_seconds": 286.81,
+    "docker_enabled": "enabled",
+    "docker_active": "active",
+    "containers": {
+      "agent-research-hermes": {
+        "id": "ec3abc84a0a333de586a8b6ce36cbd649548abca8174d7072a5bb9acafb0defe",
+        "created_at_utc": "2026-10-17T10:46:26.073200389Z",
+        "started_at_utc": "2026-10-17T11:03:39.778417377Z",
+        "status": "running",
+        "health": "healthy",
+        "pid": 1164,
+        "restart_count": 0,
+        "oom_killed": false,
+        "restart_policy": "unless-stopped",
+        "image": "nousresearch/hermes-agent:v0.21.6@sha256:55e192fba0cd4fde61142abbff5adeacff40efdb482ccd0ff877924bd274f909"
+      },
+      "agent-research-telegram": {
+        "id": "81066ba6a27df89338263903ed0967fa354f49d8bda1e445bc2594dc815c7271",
+        "created_at_utc": "2026-10-17T10:46:26.09198543Z",
+        "started_at_utc": "2026-10-17T11:03:44.311599296Z",
+        "status": "running",
+        "health": null,
+        "pid": 1983,
+        "restart_count": 1,
+        "oom_killed": false,
+        "restart_policy": "unless-stopped",
+        "image": "agent-research-telegram:local"
+      }
+    },
+    "booted_at_utc_approx": "2026-10-17T11:03:34.186716+00:00",
+    "hermes_health": {
+      "http_status": 200,
+      "response": {
+        "status": "ok",
+        "platform": "hermes-agent",
+        "version": "0.21.6"
+      }
+    },
+    "ollama_version": {
+      "http_status": 200,
+      "response": {
+        "version": "0.35.1"
+      }
+    },
+    "ollama_tags": {
+      "http_status": 200,
+      "response": [
+        {
+          "name": "agent-lab-qwen:4b",
+          "digest": "338d8b68d59f40bcfbbeffced53f2f4039bd180f5cd7cd79be5754359b215311"
+        },
+        {
+          "name": "qwen3.5:4b",
+          "digest": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04"
+        }
+      ]
+    },
+    "mac_launchd": {
+      "ollama": {
+        "loaded": true,
+        "pid": 65172,
+        "runs": 1
+      },
+      "ollama-tunnel": {
+        "loaded": true,
+        "pid": 67216,
+        "runs": 3
+      }
+    },
+    "mac_launchd_observed_at_utc": "2026-10-17T11:08:21.236872+00:00"
+  },
+  "observations": [
+    {
+      "observed_at_utc": "2026-10-17T11:03:47.355436+00:00",
+      "ssh_ready": true,
+      "boot_id": "9ed03e88-7439-4f82-a977-5b91bf2e1803",
+      "containers_running_and_apis_ready": true
+    }
+  ],
+  "recovery_verification": {
+    "boot_id_changed": true,
+    "container_ids_preserved": true,
+    "container_started_at_changed": true,
+    "docker_enabled_and_active_after_boot": true,
+    "hermes_health_after_recovery": "healthy",
+    "mac_ollama_process_preserved": true,
+    "ssh_tunnel_reconnected_automatically": true,
+    "manual_service_start_after_reboot": false,
+    "bot_polling_started_at_local": "2026-10-17T04:03:48.440552-07:00",
+    "bot_polling_started_at_utc": "2026-10-17T11:03:48.440552+00:00",
+    "reboot_request_to_polling_seconds": 18.957051,
+    "bot_first_attempt_failed": true,
+    "bot_automatic_restart_count": 1,
+    "initial_bot_failure_cause": "Not established by the sanitized startup event; early Hermes API availability is a hypothesis"
+  },
+  "controlled_question": "Ответь одним словом: восстановлен",
+  "controlled_output": "Восстановлен.",
+  "telegram_bot_events": [
+    {
+      "docker_timestamp_utc": "2026-10-17T11:03:29.762421002Z",
+      "timestamp_local": "2026-10-17T04:03:29.761412-07:00",
+      "timestamp_utc": "2026-10-17T11:03:29.761412+00:00",
+      "level": "INFO",
+      "event": "bot_polling_stopped"
+    },
+    {
+      "docker_timestamp_utc": "2026-10-17T11:03:43.719549171Z",
+      "timestamp_local": "2026-10-17T04:03:43.719403-07:00",
+      "timestamp_utc": "2026-10-17T11:03:43.719403+00:00",
+      "level": "ERROR",
+      "event": "bot_startup_failed"
+    },
+    {
+      "docker_timestamp_utc": "2026-10-17T11:03:48.440721042Z",
+      "timestamp_local": "2026-10-17T04:03:48.440552-07:00",
+      "timestamp_utc": "2026-10-17T11:03:48.440552+00:00",
+      "level": "INFO",
+      "event": "bot_polling_started"
+    },
+    {
+      "docker_timestamp_utc": "2026-10-17T11:03:48.967459626Z",
+      "timestamp_local": "2026-10-17T04:03:48.967299-07:00",
+      "timestamp_utc": "2026-10-17T11:03:48.967299+00:00",
+      "level": "INFO",
+      "event": "reply_sent"
+    },
+    {
+      "docker_timestamp_utc": "2026-10-17T11:04:01.780756257Z",
+      "timestamp_local": "2026-10-17T04:04:01.780603-07:00",
+      "timestamp_utc": "2026-10-17T11:04:01.780603+00:00",
+      "level": "INFO",
+      "event": "reply_sent"
+    },
+    {
+      "docker_timestamp_utc": "2026-10-17T11:04:04.817176300Z",
+      "timestamp_local": "2026-10-17T04:04:04.816732-07:00",
+      "timestamp_utc": "2026-10-17T11:04:04.816732+00:00",
+      "level": "INFO",
+      "event": "reply_sent"
+    },
+    {
+      "docker_timestamp_utc": "2026-10-17T11:04:08.023452301Z",
+      "timestamp_local": "2026-10-17T04:04:08.022731-07:00",
+      "timestamp_utc": "2026-10-17T11:04:08.022731+00:00",
+      "level": "INFO",
+      "event": "reply_sent"
+    },
+    {
+      "docker_timestamp_utc": "2026-10-17T11:04:12.064199220Z",
+      "timestamp_local": "2026-10-17T04:04:12.063812-07:00",
+      "timestamp_utc": "2026-10-17T11:04:12.063812+00:00",
+      "level": "INFO",
+      "event": "reply_sent"
+    },
+    {
+      "docker_timestamp_utc": "2026-10-17T11:04:30.942507604Z",
+      "timestamp_local": "2026-10-17T04:04:30.942101-07:00",
+      "timestamp_utc": "2026-10-17T11:04:30.942101+00:00",
+      "level": "INFO",
+      "event": "hermes_run_admitted"
+    },
+    {
+      "docker_timestamp_utc": "2026-10-17T11:05:32.155377508Z",
+      "timestamp_local": "2026-10-17T04:05:32.150756-07:00",
+      "timestamp_utc": "2026-10-17T11:05:32.150756+00:00",
+      "level": "INFO",
+      "event": "hermes_run_completed"
+    },
+    {
+      "docker_timestamp_utc": "2026-10-17T11:05:32.830073092Z",
+      "timestamp_local": "2026-10-17T04:05:32.829654-07:00",
+      "timestamp_utc": "2026-10-17T11:05:32.829654+00:00",
+      "level": "INFO",
+      "event": "reply_sent"
+    },
+    {
+      "docker_timestamp_utc": "2026-10-17T11:05:33.038354842Z",
+      "timestamp_local": "2026-10-17T04:05:33.038205-07:00",
+      "timestamp_utc": "2026-10-17T11:05:33.038205+00:00",
+      "level": "INFO",
+      "event": "hermes_run_admitted"
+    },
+    {
+      "docker_timestamp_utc": "2026-10-17T11:05:34.072659384Z",
+      "timestamp_local": "2026-10-17T04:05:34.072345-07:00",
+      "timestamp_utc": "2026-10-17T11:05:34.072345+00:00",
+      "level": "INFO",
+      "event": "hermes_run_completed"
+    },
+    {
+      "docker_timestamp_utc": "2026-10-17T11:05:34.290862343Z",
+      "timestamp_local": "2026-10-17T04:05:34.290348-07:00",
+      "timestamp_utc": "2026-10-17T11:05:34.290348+00:00",
+      "level": "INFO",
+      "event": "reply_sent"
+    }
+  ],
+  "telegram_hermes_runs": [
+    {
+      "status": "completed",
+      "runtime": {
+        "provider": "custom",
+        "model": "agent-lab-qwen:4b",
+        "route_source": "global"
+      },
+      "usage": {
+        "input_tokens": 15164,
+        "output_tokens": 6,
+        "total_tokens": 15170,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0
+      },
+      "output": "Восстановлен.",
+      "created_at_utc": "2026-10-17T11:04:30.931615+00:00",
+      "created_at_local": "2026-10-17T04:04:30.931615-07:00",
+      "updated_at_utc": "2026-10-17T11:05:31.276948+00:00",
+      "updated_at_local": "2026-10-17T04:05:31.276948-07:00",
+      "output_matches_expected": true
+    },
+    {
+      "status": "completed",
+      "runtime": {
+        "provider": "custom",
+        "model": "agent-lab-qwen:4b",
+        "route_source": "global"
+      },
+      "usage": {
+        "input_tokens": 15186,
+        "output_tokens": 6,
+        "total_tokens": 15192,
+        "cache_read_tokens": 15160,
+        "cache_write_tokens": 0
+      },
+      "output": "Восстановлен.",
+      "created_at_utc": "2026-10-17T11:05:33.028754+00:00",
+      "created_at_local": "2026-10-17T04:05:33.028754-07:00",
+      "updated_at_utc": "2026-10-17T11:05:33.725329+00:00",
+      "updated_at_local": "2026-10-17T04:05:33.725329-07:00",
+      "output_matches_expected": true
+    }
+  ],
+  "conversation_verification": [
+    {
+      "role": "user",
+      "matches_control_question": true,
+      "matches_control_output": false
+    },
+    {
+      "role": "assistant",
+      "matches_control_question": false,
+      "matches_control_output": true
+    },
+    {
+      "role": "user",
+      "matches_control_question": true,
+      "matches_control_output": false
+    },
+    {
+      "role": "assistant",
+      "matches_control_question": false,
+      "matches_control_output": true
+    }
+  ],
+  "correlated_request_traces": [
+    {
+      "admitted_at_local": "2026-10-17T04:04:30.942101-07:00",
+      "admitted_at_utc": "2026-10-17T11:04:30.942101+00:00",
+      "completed_at_local": "2026-10-17T04:05:32.150756-07:00",
+      "completed_at_utc": "2026-10-17T11:05:32.150756+00:00",
+      "telegram_reply_sent_at_local": "2026-10-17T04:05:32.829654-07:00",
+      "telegram_reply_sent_at_utc": "2026-10-17T11:05:32.829654+00:00",
+      "admission_to_reply_seconds": 61.887553
+    },
+    {
+      "admitted_at_local": "2026-10-17T04:05:33.038205-07:00",
+      "admitted_at_utc": "2026-10-17T11:05:33.038205+00:00",
+      "completed_at_local": "2026-10-17T04:05:34.072345-07:00",
+      "completed_at_utc": "2026-10-17T11:05:34.072345+00:00",
+      "telegram_reply_sent_at_local": "2026-10-17T04:05:34.290348-07:00",
+      "telegram_reply_sent_at_utc": "2026-10-17T11:05:34.290348+00:00",
+      "admission_to_reply_seconds": 1.252143
+    }
+  ],
+  "ollama": {
+    "events": [
+      {
+        "source_line": "[GIN] 2026/10/17 - 20:05:31 | 200 | 59.320738167s |       127.0.0.1 | POST     \"/v1/chat/completions\"",
+        "source_timestamp": "2026/10/17 20:05:31",
+        "source_timezone": "Asia/Yakutsk",
+        "timestamp_utc": "2026-10-17T11:05:31+00:00",
+        "timestamp_local": "2026-10-17T04:05:31-07:00",
+        "http_status": 200,
+        "duration": "59.320738167s",
+        "method": "POST",
+        "path": "/v1/chat/completions"
+      },
+      {
+        "source_line": "[GIN] 2026/10/17 - 20:05:33 | 200 |  597.053167ms |       127.0.0.1 | POST     \"/v1/chat/completions\"",
+        "source_timestamp": "2026/10/17 20:05:33",
+        "source_timezone": "Asia/Yakutsk",
+        "timestamp_utc": "2026-10-17T11:05:33+00:00",
+        "timestamp_local": "2026-10-17T04:05:33-07:00",
+        "http_status": 200,
+        "duration": "597.053167ms",
+        "method": "POST",
+        "path": "/v1/chat/completions"
+      }
+    ],
+    "correlation_scope": "Two successful model requests in the same windows as the two controlled Telegram runs; runtime and persisted control messages also verified"
+  },
+  "limits": [
+    "One Linux VM reboot with two subsequent controlled text requests; this is not a reliability or performance series",
+    "Mac and its current user session stayed running; host cold boot, logout, sleep, and Docker Ollama backend recovery were not tested",
+    "Polling recovery time is measured from the reboot command timestamp, not from the first powered-on instruction",
+    "An initial bot_startup_failed event was followed by one Docker restart and successful polling without manual intervention; the sanitized log does not establish the initial exception type",
+    "reply_sent confirms successful Telegram Bot API sending; no screenshot or owner-read receipt is included",
+    "Cron with a closed messenger and a real outsider-account check remain for separate P1 stages"
+  ]
+}
