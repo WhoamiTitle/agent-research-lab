@@ -24,6 +24,8 @@ repos:
     rev: v6.0.0
     hooks:
       - id: check-added-large-files
+        # Preserve these two reviewed user PNG originals without image editing.
+        exclude: ^evidence/p1/screenshots/(hermes-startup-terminal|telegram-dialogue)\.png$
       - id: check-case-conflict
       - id: check-executables-have-shebangs
       - id: check-json

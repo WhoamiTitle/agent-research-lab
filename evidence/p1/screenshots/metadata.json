@@ -1,0 +1,124 @@
+{
+  "kind": "user_provided_screenshots_for_p1",
+  "provided_by": "user",
+  "reviewed_at_utc": "2026-10-18T11:30:57.113675+00:00",
+  "reviewed_at_local": "2026-10-18T04:30:57.113675-07:00",
+  "new_experiment_run": false,
+  "scope": "Two native Terminal screenshots of archived P1 materials dated 2026-10-17, plus a separate user-provided Telegram dialogue illustration with no visible calendar date or verified timezone. No new agent run was performed while adding these files.",
+  "images": [
+    {
+      "file": "hermes-cron-terminal.png",
+      "received_as": "image1.png",
+      "sha256": "7744a2b8f40071ab49f4b7e95b981e7da57dd259aabe2d50ebc35499e7c6d44b",
+      "width": 1594,
+      "height": 708,
+      "bytes": 412111,
+      "purpose": "Archived cron history, successful builtin execution, and result file",
+      "captured_at_utc": null,
+      "capture_time_note": "Not established; filesystem timestamps are not treated as capture timestamps",
+      "image_bytes_unchanged": true,
+      "review_method": "Visual inspection and comparison with the saved P1 logs and JSON",
+      "authentication_secrets_visible": false,
+      "telegram_user_ids_or_phone_numbers_visible": false,
+      "local_shell_prompt_visible": true,
+      "experiment_date": "2026-10-17"
+    },
+    {
+      "file": "hermes-startup-terminal.png",
+      "received_as": "image2.png",
+      "sha256": "9a4d749c69e12fe99b485b287bbe07ace7bfb4d18c36dcae2cea9f75c78d39d4",
+      "width": 2252,
+      "height": 626,
+      "bytes": 552436,
+      "purpose": "Archived gateway startup, bot polling, and actual skill tool trace",
+      "captured_at_utc": null,
+      "capture_time_note": "Not established; filesystem timestamps are not treated as capture timestamps",
+      "image_bytes_unchanged": true,
+      "review_method": "Visual inspection and comparison with the saved P1 logs and JSON",
+      "authentication_secrets_visible": false,
+      "telegram_user_ids_or_phone_numbers_visible": false,
+      "local_shell_prompt_visible": true,
+      "experiment_date": "2026-10-17"
+    },
+    {
+      "file": "telegram-dialogue.png",
+      "received_as": "image3.png",
+      "sha256": "981bd4a1f5ef72dae7d2ee6245c165b78629a65e155096a32ac44fdaf8b10957",
+      "width": 1500,
+      "height": 1430,
+      "bytes": 1706501,
+      "purpose": "Separate Telegram dialogue illustration: a Habr-only question, a visible bot reply containing a URL, and a partially visible subsequent reply",
+      "captured_at_utc": null,
+      "capture_time_note": "Not established; filesystem timestamps are not treated as capture timestamps",
+      "experiment_date": null,
+      "visible_bot_display_name": "TestGermes",
+      "bot_username_visible": false,
+      "visible_question": "Найди только по habr",
+      "visible_subsequent_question": "Найди все новости по хабр",
+      "visible_times": [
+        "02:32",
+        "02:33"
+      ],
+      "visible_calendar_date": null,
+      "screenshot_timezone_verified": false,
+      "at_least_one_complete_question_reply_pair_visible": true,
+      "subsequent_reply_partially_visible": true,
+      "matched_control_run": null,
+      "correlation_limit": "Different questions from the saved D1/D2 and R1/R2 control runs. The screenshot is not used as a record of their timestamps, latency, tokens, model, or backend.",
+      "source_links_accuracy_checked": false,
+      "image_bytes_unchanged": true,
+      "review_method": "Visual inspection of the original user-provided screenshot",
+      "authentication_secrets_visible": false,
+      "telegram_user_ids_or_phone_numbers_visible": false,
+      "personal_display_name_visible": true,
+      "local_shell_prompt_visible": false
+    }
+  ],
+  "sources": [
+    {
+      "file": "evidence/p1/skill-loading-startup.log",
+      "sha256": "c1b3b3adfce1bb4e928988e42c3e6bfe1ba7bbaf7d75975c4912815469c36a55"
+    },
+    {
+      "file": "evidence/p1/skill-loading.json",
+      "sha256": "b95850f47d782e60ef5b4da22d229f74dd2ab428ac39d4dbb912696e75facea6"
+    },
+    {
+      "file": "evidence/p1/autonomous-cron-history.txt",
+      "sha256": "e2b98ca2282f93e6885e543352ee3a5959aa929e97479013d3da1f95237cad91"
+    },
+    {
+      "file": "evidence/p1/autonomous-cron.json",
+      "sha256": "eda45e88a1b1eb2d86f4b81eefa2b6a1adf9263c979b613b9f5e4a61bcecb13e"
+    },
+    {
+      "file": "evidence/p1/autonomous-cron-result.txt",
+      "sha256": "ba8c89a05e5d0d4ac3268cd82e6c0a90ddc582ba392f684099bc3a98acb83bb4"
+    },
+    {
+      "file": "scripts/evidence/show-startup.command",
+      "sha256": "3cec7e402e56f06597030e48b72b3297592dadd69a20659e89ef3d86ac6e64d1",
+      "at_capture": {
+        "file": "evidence/p1/screenshots/show-startup.command",
+        "sha256": "d784b0ad560c3796ed695c714949db880bcd3528352add3f903c180e9cccbd54"
+      },
+      "change_after_capture": "Moved to scripts/evidence; only repository-root resolution changed from three parent directories to two. Stdout verified byte-for-byte unchanged."
+    },
+    {
+      "file": "scripts/evidence/show-cron.command",
+      "sha256": "1b3a1450ee2f826a72aed5c063018d72d1c4f2fe34e1d11040837d8eee258901",
+      "at_capture": {
+        "file": "evidence/p1/screenshots/show-cron.command",
+        "sha256": "2874b0ec1f8c926ccf1dd5bc7666b7dbc2c35d1d0bc19a7e72edde651b870b73"
+      },
+      "change_after_capture": "Moved to scripts/evidence; only repository-root resolution changed from three parent directories to two. Stdout verified byte-for-byte unchanged."
+    }
+  ],
+  "pending": [
+    "Real second-account rejection and its screenshot"
+  ],
+  "report_timezone": "America/Los_Angeles",
+  "source_layout_updated_at_utc": "2026-10-18T11:43:38.220954+00:00",
+  "source_layout_updated_at_local": "2026-10-18T04:43:38.220954-07:00",
+  "display_script_stdout_unchanged_after_relocation": true
+}

@@ -2,6 +2,9 @@
 
 Это реальные затруднения при подготовке 10 октября 2026 года.
 Исследовательские эксперименты T/P по ним ещё не выполнялись.
+Подробные журналы TXT/JSONL, названные ниже, хранятся локально
+в `evidence/private/preparation/`. Публикуемые сводные JSON проверок кода
+остаются в `evidence/preparation/`.
 
 | Ошибка | Проверка причины | Решение и результат |
 | --- | --- | --- |
@@ -25,5 +28,5 @@ Python 3.14 оставлен как отдельная зависимость. �
 не менялись.
 
 Подробные журналы Docker сохранены локально: неуспешный запуск —
-`evidence/preparation/docker-dns-failure.txt`, повторный успешный —
-`evidence/preparation/docker-hello-world.txt`.
+`evidence/private/preparation/docker-dns-failure.txt`, повторный успешный —
+`evidence/private/preparation/docker-hello-world.txt`.

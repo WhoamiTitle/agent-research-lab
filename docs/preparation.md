@@ -51,7 +51,9 @@ P1; текущий статус приведён в [отчёте P1](p1.md).
 
 ## Проверки и ограничения
 
-Результаты находятся в [`evidence/preparation/`](../evidence/preparation/).
+Сводки проверок кода находятся в [`evidence/preparation/`](../evidence/preparation/).
+Подробные исходные журналы хранятся локально в `evidence/private/preparation/`
+и не включаются в Git.
 Инструкции запуска — в [`local-setup.md`](local-setup.md), ошибки — в
 [`preparation-errors.md`](preparation-errors.md).
 
